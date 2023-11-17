@@ -1,0 +1,6 @@
+dist
+build
+*.egg-info
+
+.venv
+test/output/*
