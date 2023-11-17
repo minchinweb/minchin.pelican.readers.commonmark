@@ -1,7 +1,3 @@
-from pelican.plugins import seafoam
-
-# THEME = seafoam.get_path()
-# BOOTSTRAP_THEME = "seafoam"
 PATH = "content"
 STATIC_PATHS = [
     "images",
@@ -10,9 +6,7 @@ TIMEZONE = "America/Edmonton"
 OUTPUT_PATH = "output"
 
 PLUGINS = [
-    "pelican.plugins.seafoam",
-    # "pelican.plugins.jinja_filters",
-    # "pelican.plugins.image_process",
+    "minchin.pelican.readers.commonmark",
 ]
 
 CACHE_CONTENT = False
@@ -48,7 +42,11 @@ PAGE_SAVE_AS = PAGE_URL
 
 
 MENUITEMS = (
-    ("Dev Blog", "https://blog.minchin.ca/label/seafoam/", "fa fa-fw fa-pencil"),
+    (
+        "Dev Blog",
+        "https://blog.minchin.ca/label/commonmark-pelican/",
+        # "fa fa-fw fa-pencil"
+    ),
 )
 
 DISPLAY_BREADCRUMBS = True

@@ -8,7 +8,7 @@ exclude = ["tests"]
 
 [tool.setuptools.dynamic]
 # this has to be the place the version is located via static analysis
-version = {attr = "minchin.pelican.readers.commonmark.constrants.__version__"}
+version = {attr = "minchin.pelican.readers.commonmark.constants.__version__"}
 # description = {attr = "minchin.jrnl.__description__"}  # must be pulled from file
 readme = {file = ["README.rst"], content-type = "text/x-rst"}
 dependencies = {file = [".requirements/base.in"]}
