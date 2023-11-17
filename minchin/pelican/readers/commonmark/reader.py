@@ -7,7 +7,6 @@ from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
-from pelican import signals
 from pelican.readers import BaseReader
 from pelican.utils import pelican_open
 
@@ -115,10 +114,6 @@ class MDITReader(BaseReader):
         return output, metadata
 
 
-def add_reader(readers):
+def add_commonmark_reader(readers):
     for ext in MDITReader.file_extensions:
         readers.reader_classes[ext] = MDITReader
-
-
-def register():
-    signals.readers_init.connect(add_reader)
