@@ -1,6 +1,6 @@
 import logging
 
-from .constants import LOG_PREFIX, __url__, __version__, COMMONMARK_DEFAULT_CONFIG
+from .constants import COMMONMARK_DEFAULT_CONFIG, LOG_PREFIX, __url__, __version__
 
 logger = logging.getLogger(__name__)
 

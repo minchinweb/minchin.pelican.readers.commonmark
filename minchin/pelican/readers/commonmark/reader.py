@@ -1,3 +1,5 @@
+import logging
+
 from markdown_it import MarkdownIt
 from mdit_py_plugins.deflist import deflist_plugin
 from mdit_py_plugins.footnote import footnote_plugin
@@ -11,7 +13,6 @@ from pelican.readers import BaseReader, MarkdownReader
 from pelican.utils import pelican_open
 
 from .constants import LOG_PREFIX
-import logging
 
 logger = logging.getLogger(__name__)
 
