@@ -12,7 +12,7 @@ __license__ = "MIT License"
 LOG_PREFIX = "[CommonMark]"
 
 COMMONMARK_DEFAULT_CONFIG = {
-    "plugins": [
+    "extensions": [
         mdit_py_plugins.deflist.deflist_plugin,
         mdit_py_plugins.footnote.footnote_plugin,
     ],

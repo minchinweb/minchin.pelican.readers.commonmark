@@ -18,7 +18,7 @@ Let us begin:
 
 # Table of Contents (JS)
 
-Include an empty div with `id="contents"` at start of file to have a floating 
+Include an empty div with `id="contents"` at start of file to have a floating
 table of contents automatically generated. eg:
 
 ~~~html
@@ -335,12 +335,12 @@ Pop
 Hover over this here [ABBR] (a tooltip should
 show up)
 
-*[ABBR]: Markdown-Plus abbreviations (produces an <abbr> tag)
+*[ABBR]: Markdown-Plus abbreviations (produces an `<abbr>` tag)
 ~~~
 
 Hover over this here [ABBR] (a tooltip should show up)
 
-*[ABBR]: Markdown-Plus abbreviations (produces an <abbr> tag)
+*[ABBR]: Markdown-Plus abbreviations (produces an `<abbr>` tag)
 
 Your list of abbreviations is often collected at the bottom of the source
 document (with footnotes.)
@@ -503,7 +503,7 @@ Donec non enim id
 dolor elementum tincidunt. Fusce et quam nulla. Vivamus diam lacus, ultrices
 quis malesuada ullamcorper, elementum in elit.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et leo ac libero 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et leo ac libero
 pellentesque volutpat. Nunc euismod fermentum augue, vel laoreet ante gravida nec.
 Etiam et odio ac ante interdum adipiscing.
 
@@ -516,7 +516,7 @@ dignissim at. Sed ut eros est.
 Maecenas dictum sodales leo in sagittis. Sed ullamcorper enim nec ligula tempus
 eu gravida enim laoreet. Nunc eu feugiat erat.
 
-***
+* * *
 
 Morbi interdum, nisl at fringilla
 semper, magna lorem laoreet neque, ac posuere risus diam et odio. Mauris iaculis
@@ -526,7 +526,7 @@ molestie egestas dignissim eget, suscipit vel nunc.
 Praesent aliquam tempor
 lectus, sed facilisis urna aliquam non. Nulla facilisi.
 
-***
+* * *
 
 Aenean at tellus velit. Aliquam eleifend cursus posuere. Sed semper, justo
 lacinia pharetra ultricies, nulla purus tincidunt enim, non pretium odio ante

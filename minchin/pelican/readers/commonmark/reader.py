@@ -1,8 +1,6 @@
 import logging
 
 from markdown_it import MarkdownIt
-from mdit_py_plugins.deflist import deflist_plugin
-from mdit_py_plugins.footnote import footnote_plugin
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, guess_lexer
@@ -20,7 +18,6 @@ logger = logging.getLogger(__name__)
 class MDITReader(BaseReader):
     enabled = True
     # file_extensions = ["md", "markdown", "mkd", "mdown"]
-    file_extensions = []  # placeholder
     extensions = None
 
     # use the same file extensions as the build-in Markdown Reader
@@ -103,21 +100,21 @@ class MDITReader(BaseReader):
 
         md = MarkdownIt("commonmark")
 
-        # add plugins
+        # add extensions, aka Markdown-IT plugins
         if (
-            "plugins" in self.settings["COMMONMARK"]
-            and self.settings["COMMONMARK"]["plugins"]
+            "extensions" in self.settings["COMMONMARK"]
+            and self.settings["COMMONMARK"]["extensions"]
         ):
-            for my_plugin in self.settings["COMMONMARK"]["plugins"]:
+            for my_extension in self.settings["COMMONMARK"]["extensions"]:
                 logger.info(
                     '%s Enabling Markdown-IT plugin: "%s"'
-                    % (LOG_PREFIX, str(my_plugin))
+                    % (LOG_PREFIX, str(my_extension))
                 )
-                md = md.use(my_plugin)
+                md = md.use(my_extension)
         else:
             logger.warning(
-                '%s Unable to set Markdown-IT plugins: "%s"'
-                % (LOG_PREFIX, "plugins" in self.settings["COMMONMARK"])
+                '%s Unable to set Markdown-IT extensions: "%s"'
+                % (LOG_PREFIX, "extensions" in self.settings["COMMONMARK"])
             )
             logger.warning("%s" % (self.settings["COMMONMARK"]))
 
