@@ -4,7 +4,8 @@ CommonMark Reader for Pelican
 *Powered by Markdown-IT*
 
 
-## Pelican Settings
+Pelican Settings
+----------------
 
 COMMONMARK = {"plugins": [<plugin classes>], "enable": [<str of name of features>]}
   (To be defined). Used to configure which plugins and extensions are loaded by

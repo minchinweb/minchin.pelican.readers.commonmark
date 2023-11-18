@@ -1,0 +1,17 @@
+releaser:
+    module_name: minchin.pelican.readers.commonmark
+    pypi_name: minchin.pelican.readers.commonmark
+    here: .
+    docs: none
+    test: test
+    source: minchin
+    changelog: CHANGELOG.rst
+    version: minchin/pelican/readers/commonmark/constants.py
+    test_command: none
+    version_bump: none
+    extra_packages:
+        test:
+            - pelican
+            - setuptools
+            - wheel
+        pypi:
