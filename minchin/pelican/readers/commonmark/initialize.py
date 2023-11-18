@@ -13,17 +13,11 @@ def check_settings(pelican):
 
     if not "COMMONMARK" in pelican.settings.keys():
         pelican.settings["COMMONMARK"] = COMMONMARK_DEFAULT_CONFIG
-        logger.debug(
-            '%s COMMONMARK (plugin settings) set to default.'
-            % (LOG_PREFIX)
-        )
+        logger.debug("%s COMMONMARK (plugin settings) set to default." % (LOG_PREFIX))
     else:
         logger.debug(
-            '%s COMMONMARK (plugin settings) previously set manually.'
-            % (LOG_PREFIX)
+            "%s COMMONMARK (plugin settings) previously set manually." % (LOG_PREFIX)
         )
-
-
 
 
 def commonmark_version(pelican):

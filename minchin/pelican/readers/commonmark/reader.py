@@ -24,16 +24,14 @@ class MDITReader(BaseReader):
     extensions = None
 
     # use the same file extensions as the build-in Markdown Reader
-    _pelican_markdown_reader= MarkdownReader({"MARKDOWN": {}})
+    _pelican_markdown_reader = MarkdownReader({"MARKDOWN": {}})
     file_extensions = _pelican_markdown_reader.file_extensions
     del _pelican_markdown_reader
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         settings = self.settings["COMMONMARK"]
-
 
     def read(self, filename):
         def replace_pelican_placeholders(original_url) -> str:
@@ -88,7 +86,6 @@ class MDITReader(BaseReader):
                 HtmlFormatter(cssclass="codehilite", wrapcode=True),
             )
             return output
-        
 
         with pelican_open(filename) as fp:
             text = list(fp.splitlines())
@@ -104,12 +101,13 @@ class MDITReader(BaseReader):
                 content = "\n".join(text[i:])
                 break
 
-        md = (
-            MarkdownIt("commonmark")
-        )
-        
+        md = MarkdownIt("commonmark")
+
         # add plugins
-        if "plugins" in self.settings["COMMONMARK"] and self.settings["COMMONMARK"]["plugins"]:
+        if (
+            "plugins" in self.settings["COMMONMARK"]
+            and self.settings["COMMONMARK"]["plugins"]
+        ):
             for my_plugin in self.settings["COMMONMARK"]["plugins"]:
                 logger.info(
                     '%s Enabling Markdown-IT plugin: "%s"'
@@ -121,22 +119,25 @@ class MDITReader(BaseReader):
                 '%s Unable to set Markdown-IT plugins: "%s"'
                 % (LOG_PREFIX, "plugins" in self.settings["COMMONMARK"])
             )
-            logger.warning('%s' % (self.settings["COMMONMARK"]))
+            logger.warning("%s" % (self.settings["COMMONMARK"]))
 
         # enable tables, etc
-        if "enable" in self.settings["COMMONMARK"] and self.settings["COMMONMARK"]["enable"]:
+        if (
+            "enable" in self.settings["COMMONMARK"]
+            and self.settings["COMMONMARK"]["enable"]
+        ):
             for my_enable in self.settings["COMMONMARK"]["enable"]:
                 logger.info(
                     '%s Enabling Markdown-IT feature: "%s"'
                     % (LOG_PREFIX, str(my_enable))
                 )
-                md = md.enable(my_enable)  
+                md = md.enable(my_enable)
         else:
             logger.warning(
                 '%s Unable to enable Markdown-IT features. "%s"'
                 % (LOG_PREFIX, "enable" in self.settings["COMMONMARK"])
             )
-            logger.warning('%s' % (self.settings["COMMONMARK"]))
+            logger.warning("%s" % (self.settings["COMMONMARK"]))
 
         # add in our processors for links
         md.add_render_rule("link_open", render_pelican_link)

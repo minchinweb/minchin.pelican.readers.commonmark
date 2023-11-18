@@ -17,6 +17,6 @@ COMMONMARK_DEFAULT_CONFIG = {
         mdit_py_plugins.footnote.footnote_plugin,
     ],
     "enable": [
-        "table"
+        "table",
     ],
 }

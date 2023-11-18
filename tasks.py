@@ -11,8 +11,6 @@ except ImportError:
 p = Path(__file__).parent  # directory holding this file
 
 
-
-
 @task
 def test(ctx, carefully=False, verbose=False, debug=False):
     """Generate the test Pelican site."""
