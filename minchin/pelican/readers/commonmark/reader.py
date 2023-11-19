@@ -84,20 +84,7 @@ class MDITReader(BaseReader):
             )
             return output
 
-        with pelican_open(filename) as fp:
-            text = list(fp.splitlines())
-
-        content = None
-        metadata = {}
-        for i, line in enumerate(text):
-            kv = line.split(":", 1)
-            if len(kv) == 2:
-                name, value = kv[0].lower(), kv[1].strip()
-                metadata[name] = self.process_metadata(name, value)
-            else:
-                content = "\n".join(text[i:])
-                break
-
+        # setup our CommonMark (Markdown) processor
         md = MarkdownIt("commonmark")
 
         # add extensions, aka Markdown-IT plugins
@@ -142,7 +129,58 @@ class MDITReader(BaseReader):
         md.add_render_rule("image", render_pelican_image)
         md.add_render_rule("fence", render_fence)
 
-        output = md.render(content)
+        # ---
+        # open our source file
+        with pelican_open(filename) as fp:
+            text = list(fp.splitlines())
+
+        # process metadata
+        metadata = {}
+        content = None
+
+        formatted_fields = self.settings["FORMATTED_FIELDS"]
+
+        # TODO: if we use the frontmatter Markdown-IT plugin, we need to skip
+        # most of this...
+        # c.f. https://github.com/Python-Markdown/markdown/blob/master/markdown/extensions/meta.py
+        for i, line in enumerate(text):
+            kv = line.split(":", 1)
+            if len(kv) == 2:
+                name, value = kv[0], kv[1]
+                name = name.lower().strip()
+                value = value.strip()
+                # value = value.split(",")
+                # logger.warning("%s %s %s %s" % (LOG_PREFIX, filename, name, value))
+
+                if name in formatted_fields:
+                    # formatted metadata is special case and join all list values
+                    formatted_values = "\n".join(value)
+                    formatted = md.render(formatted_values)
+                    metadata[name] = self.process_metadata(name, formatted)
+                # elif not DUPLICATES_DEFINITIONS_ALLOWED.get(name, True):
+                #     if len(value) > 1:
+                #         logger.warning(
+                #             '%s Duplicate definition of "%s" '
+                #             'for "%s". Using first one.',
+                #             LOG_PREFIX,
+                #             name,
+                #             filename,
+                #         )
+                #     metadata[name] = self.process_metadata(name, value[0])
+                # elif len(value) > 1:
+                #     # handle list metadata as list of string
+                #     metadata[name] = self.process_metadata(name, value)
+                else:
+                    # otherwise, handle metadata as single string
+                    # metadata[name] = self.process_metadata(name, value[0])
+                    metadata[name] = self.process_metadata(name, value)
+            else:
+                # after first line that isn't in key:value format, dump the
+                # rest into "content"
+                content = "\n".join(text[i:])
+                break
+
+        md_content = md.render(content)
 
         return output, metadata
 
