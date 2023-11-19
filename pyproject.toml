@@ -17,6 +17,7 @@ dependencies = {file = [".requirements/base.in"]}
 dev = {file = [".requirements/dev.in"] }
 # release = {file = [".requirements/release.in"] }
 # docs = {file = [".requirements/docs.in"] }
+lxml = {file = [".requirements/lxml.in"] }
 
 [project]
 name = "minchin.pelican.readers.commonmark"
