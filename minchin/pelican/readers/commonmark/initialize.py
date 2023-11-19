@@ -2,6 +2,11 @@ import logging
 
 from .constants import COMMONMARK_DEFAULT_CONFIG, LOG_PREFIX, __url__, __version__
 
+try:
+    import lxml
+except ImportError:
+    lxml = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -17,6 +22,21 @@ def check_settings(pelican):
     else:
         logger.debug(
             "%s COMMONMARK (plugin settings) previously set manually." % (LOG_PREFIX)
+        )
+
+    if not "COMMONMARK_HTML_PARSER" in pelican.settings.keys():
+        if lxml:
+            pelican.settings["COMMONMARK_HTML_PARSER"] = "lxml"
+        else:
+            pelican.settings["COMMONMARK_HTML_PARSER"] = "html.parser"
+        logging.debug(
+            '%s COMMONMARK_HTML_PARSER set to "%s"'
+            % (LOG_PREFIX, pelican.settings["COMMONMARK_HTML_PARSER"])
+        )
+    else:
+        logging.debug(
+            '%s COMMONMARK_HTML_PARSER previously set manually. Is "%s"'
+            % (LOG_PREFIX, pelican.settings["COMMONMARK_HTML_PARSER"])
         )
 
 

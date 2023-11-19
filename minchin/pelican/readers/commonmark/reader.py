@@ -1,5 +1,6 @@
 import logging
 
+from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
@@ -7,7 +8,7 @@ from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
-from pelican.readers import BaseReader, MarkdownReader
+from pelican.readers import DUPLICATES_DEFINITIONS_ALLOWED, BaseReader, MarkdownReader
 from pelican.utils import pelican_open
 
 from .constants import LOG_PREFIX
@@ -182,7 +183,26 @@ class MDITReader(BaseReader):
 
         md_content = md.render(content)
 
-        return output, metadata
+        # TODO: add control switch
+        # if no title, use the first H1 in the output
+        if "title" not in metadata.keys():
+            soup = BeautifulSoup(md_content, self.settings["COMMONMARK_HTML_PARSER"])
+            try:
+                title_tag = soup.select("h1")[0]
+            except:
+                logger.info('%s Cannot pull H1 from "%s".' % (LOG_PREFIX, filename))
+            else:
+                my_title = title_tag.text.strip()
+                logger.info(
+                    '%s title set to "%s" for "%s"' % (LOG_PREFIX, my_title, filename)
+                )
+                metadata["title"] = my_title
+
+                # Remove tag from body (we assume the theme will display it)
+                title_tag.decompose()
+                md_content = soup.prettify()
+
+        return md_content, metadata
 
 
 def add_commonmark_reader(readers):

@@ -44,3 +44,7 @@ COMMONMARK_VERSION
 
 COMMONMARK_DEV_URL
   Homepage URL of the plugin. Inserted by the plugin (if not provided).
+
+COMMONMARK_HTML_PARSER = "html.parser"
+  Will be set to "lxml" is it is installed. This is the parser that Beautiful
+  Soup uses.
