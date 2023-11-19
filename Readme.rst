@@ -20,10 +20,34 @@ automatically include all the plugins that I use by default, although you can
 add or remove from that list as you wish. Currently enabled CommonMark
 extensions:
 
+- front matter
 - footnotes
 - defintion list
 - tables
 
+Changes Required from "Vanilla" Pelican
+---------------------------------------
+
+This plugin uses the Markdown-IT front matter by default. This expects front
+matter (metadata) to be at the top of the file, between lines of three dashes
+(e.g. ``---``). ("Vanilla" Pelican doesn't require these marker lines.)
+
+An example::
+
+  ---
+  title: Frontmatter Test
+  Category: test
+  date: 2023-11-19 14:56
+  ---
+
+  This is a test of the frontmatter plugin.
+
+If you don't want to (or can't) update your source files, you can provide a
+customized ``COMMONMARK`` settings (in your ``pelicanconf.py``) that doesn't
+include the frontmatter plugin.
+
+If the frontmatter plugin is not active, the plugin should parse metadata in
+the same matter as "vanilla" Pelican.
 
 Pelican Settings
 ----------------

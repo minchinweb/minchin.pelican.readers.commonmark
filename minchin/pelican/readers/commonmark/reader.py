@@ -133,7 +133,8 @@ class MDITReader(BaseReader):
         # ---
         # open our source file
         with pelican_open(filename) as fp:
-            text = list(fp.splitlines())
+            # text = list(fp.splitlines())
+            text = fp
 
         # process metadata
         metadata = {}
@@ -141,10 +142,31 @@ class MDITReader(BaseReader):
 
         formatted_fields = self.settings["FORMATTED_FIELDS"]
 
-        # TODO: if we use the frontmatter Markdown-IT plugin, we need to skip
-        # most of this...
+        # check if we have the front-matter extension (aka plugin) active
+        _front_matter_extension_active = False
+        if "extensions" in self.settings["COMMONMARK"]:
+            for my_extension in self.settings["COMMONMARK"]["extensions"]:
+                if my_extension.__name__ == "front_matter_plugin":
+                    _front_matter_extension_active = True
+                    break
+
+        front_matter_text = ""
+        if _front_matter_extension_active:
+            # TODO: pull front matter and body without having to render the
+            # Markdown twice
+            md_tokens = md.parse(text)
+            for my_token in md_tokens:
+                if my_token.type == "front_matter":
+                    front_matter_text = my_token.content
+                    front_matter_text = front_matter_text.splitlines()
+                    # assumes a single Front Matter block
+                    break
+        else:
+            front_matter_text = list(text.splitlines())
+
+        # TODO: use a YAML reader from front matter?
         # c.f. https://github.com/Python-Markdown/markdown/blob/master/markdown/extensions/meta.py
-        for i, line in enumerate(text):
+        for i, line in enumerate(front_matter_text):
             kv = line.split(":", 1)
             if len(kv) == 2:
                 name, value = kv[0], kv[1]
@@ -181,7 +203,15 @@ class MDITReader(BaseReader):
                 content = "\n".join(text[i:])
                 break
 
-        md_content = md.render(content)
+        # if using Pelican-style (parsed here) front matter, just render the
+        # "body" in markdown. If we're using the Markdown-IT front-matter
+        # plugin, we render the whole thing as it won't print the front matter.
+        if _front_matter_extension_active:
+            md_base_content = text
+        else:
+            md_base_content = content
+
+        md_content = md.render(md_base_content)
 
         # TODO: add control switch
         # if no title, use the first H1 in the output
