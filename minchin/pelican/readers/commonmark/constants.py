@@ -2,6 +2,8 @@ import mdit_py_plugins.deflist
 import mdit_py_plugins.footnote
 import mdit_py_plugins.front_matter
 
+import logging
+
 __title__ = "minchin.pelican.readers.commonmark"
 __version__ = "2.0.0-dev"
 __description__ = "CommonMark Reader for Pelican (via Markdown-IT)"
@@ -22,3 +24,14 @@ COMMONMARK_DEFAULT_CONFIG = {
         "table",
     ],
 }
+
+# COMMONMARK_MARKDOWN_DEBUG = [
+#     (logging.DEBUG, 'entering fence'),
+#     (logging.DEBUG, 'entering hr'),
+#     (logging.DEBUG, 'entering blockquote'),
+#     (logging.DEBUG, 'entering lheading'),
+#     (logging.DEBUG, 'entering paragraph'),
+#     (logging.DEBUG, 'entering list'),
+#     (logging.DEBUG, 'entering html_block'),
+#     (logging.DEBUG, 'entering reference'),
+# ]
