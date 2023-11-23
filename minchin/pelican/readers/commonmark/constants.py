@@ -25,7 +25,7 @@ COMMONMARK_DEFAULT_CONFIG = {
     ],
 }
 
-# COMMONMARK_MARKDOWN_DEBUG = [
+COMMONMARK_MARKDOWN_DEBUG = [
 #     (logging.DEBUG, 'entering fence'),
 #     (logging.DEBUG, 'entering hr'),
 #     (logging.DEBUG, 'entering blockquote'),
@@ -34,4 +34,4 @@ COMMONMARK_DEFAULT_CONFIG = {
 #     (logging.DEBUG, 'entering list'),
 #     (logging.DEBUG, 'entering html_block'),
 #     (logging.DEBUG, 'entering reference'),
-# ]
+]

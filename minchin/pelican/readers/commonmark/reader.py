@@ -176,8 +176,12 @@ class MDITReader(BaseReader):
                 # logger.warning("%s %s %s %s" % (LOG_PREFIX, filename, name, value))
 
                 if name in formatted_fields:
-                    # formatted metadata is special case and join all list values
-                    formatted_values = "\n".join(value)
+                    # formatted metadata is special case and join all list
+                    # values
+                    if isinstance(value, list | set):
+                        formatted_values = "\n".join(value)
+                    else:
+                        formatted_values = value
                     formatted = md.render(formatted_values)
                     metadata[name] = self.process_metadata(name, formatted)
                 # elif not DUPLICATES_DEFINITIONS_ALLOWED.get(name, True):
