@@ -1,6 +1,12 @@
 import logging
 
-from .constants import COMMONMARK_DEFAULT_CONFIG, LOG_PREFIX, __url__, __version__, COMMONMARK_MARKDOWN_DEBUG
+from .constants import (
+    COMMONMARK_DEFAULT_CONFIG,
+    COMMONMARK_MARKDOWN_DEBUG,
+    LOG_PREFIX,
+    __url__,
+    __version__,
+)
 
 try:
     import lxml
@@ -35,7 +41,7 @@ def check_settings(pelican):
         )
     else:
         logging.debug(
-            '%s COMMONMARK_HTML_PARSER previously set manually. Is "%s"'
+            '%s COMMONMARK_HTML_PARSER previously set manually. Is "%s".'
             % (LOG_PREFIX, pelican.settings["COMMONMARK_HTML_PARSER"])
         )
 
