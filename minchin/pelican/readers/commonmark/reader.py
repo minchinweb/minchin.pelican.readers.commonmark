@@ -9,7 +9,7 @@ from pelican.utils import pelican_open
 from .constants import LOG_PREFIX
 from .front_matter import read_front_matter
 from .markdown import render_fence, render_image, render_link_open
-from .post_process import h1_as_title
+from .post_process import h1_as_title, remove_duplicate_h1
 from .reader_utils import get_file_extensions, load_enables, load_extensions
 
 logger = logging.getLogger(__name__)
@@ -46,14 +46,15 @@ class MDITReader(BaseReader):
         # add path to metadata
         metadata["path"] = filename
 
-        md_content = md.render(content)
+        html_content = md.render(content)
 
-        md_content, metadata = h1_as_title(md_content, metadata, self.settings)
+        html_content, metadata = h1_as_title(html_content, metadata, self.settings)
+        html_content = remove_duplicate_h1(html_content, metadata, self.settings)
 
         # print(metadata)
         # print(md_content)
         # print()
-        return md_content, metadata
+        return html_content, metadata
 
 
 def add_commonmark_reader(readers):
