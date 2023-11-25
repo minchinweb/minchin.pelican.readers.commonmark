@@ -35,3 +35,42 @@ COMMONMARK_MARKDOWN_DEBUG = [
     #     (logging.DEBUG, 'entering html_block'),
     #     (logging.DEBUG, 'entering reference'),
 ]
+
+SOURCE_EXTS = tuple(
+    [
+        ".md",
+        ".markdown",
+        ".mkd",
+        ".mdown",
+        ".rst",
+        ".rest",
+        ".htm",
+        ".html",
+    ]
+)
+
+STATIC_EXTS = tuple(
+    [
+        ".gif",
+        ".tif",
+        ".tiff",
+        ".webp",
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".pdf",
+        ".svg",
+        ".mp3",
+        ".mp4",
+    ]
+)
+
+PELICAN_LINK_PLACEHOLDERS = [
+    "author",
+    "category",
+    "index",
+    "tag",
+    "filename",
+    "static",
+    "attach",
+]

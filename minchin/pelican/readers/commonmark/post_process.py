@@ -83,6 +83,8 @@ def remove_duplicate_h1(content, metadata, settings):
         return content
     else:
         h1_title = title_tag.text.strip()
+        # replace m-dash for "raw" version
+        h1_title = h1_title.replace("—", "--")
         if metadata_title == h1_title:
             title_tag.decompose()
             content = soup.prettify()

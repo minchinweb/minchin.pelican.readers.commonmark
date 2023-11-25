@@ -2,11 +2,22 @@
 Functions related to rendering the Markdown (technically, CommonMark).
 """
 
+import logging
+
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
+
+from .constants import LOG_PREFIX, SOURCE_EXTS, STATIC_EXTS, PELICAN_LINK_PLACEHOLDERS
+
+logger = logging.getLogger(__name__)
+
+EXPANDED_PELICAN_LINK_PLACEHOLDERS = [
+    "{" + x.lower() + "}" for x in PELICAN_LINK_PLACEHOLDERS
+]
+EXPANDED_PELICAN_LINK_PLACEHOLDERS = tuple(EXPANDED_PELICAN_LINK_PLACEHOLDERS)
 
 
 def _maintain_pelican_placeholders(original_url) -> str:
@@ -18,17 +29,53 @@ def _maintain_pelican_placeholders(original_url) -> str:
     """
 
     new_url = original_url
-    for placeholder in (
-        "author",
-        "category",
-        "index",
-        "tag",
-        "filename",
-        "static",
-        "attach",
-    ):
+    for placeholder in PELICAN_LINK_PLACEHOLDERS:
         new_url = new_url.replace("%7B" + placeholder + "%7D", "{" + placeholder + "}")
         new_url = new_url.replace("%7C" + placeholder + "%7C", "{" + placeholder + "}")
+    return new_url
+
+
+def _relative_links_for_pelican(original_url):
+    """
+    If given a relative URL, convert to a format Pelican can link to.
+
+    We assume that any link NOT starting with `http://`, `https://` or `//` is
+    a relative link. If that link is to a Markdown (or ReStructured Text) file,
+    we preface the destination URL with `{filename}` so Pelican will link to
+    the file, whereever it ends up in the rendered site. If the file is at
+    image, then we preface with "{static}" instead.
+    """
+
+    test_url = original_url.lower()
+    # remove in-page targets
+    test_url, _, _ = test_url.partition("#")
+    # remove query strings
+    test_url, _, _ = test_url.partition("?")
+    # assumed external links
+    if test_url.startswith(("http://", "https://", "//", "mailto:", "tel:")):
+        new_url = original_url
+
+    # don't double up on placeholders
+    elif test_url.startswith(EXPANDED_PELICAN_LINK_PLACEHOLDERS):
+        new_url = original_url
+
+    elif test_url.endswith(SOURCE_EXTS):
+        new_url = "{filename}" + original_url
+
+    elif test_url.endswith(STATIC_EXTS):
+        new_url = "{static}" + original_url
+
+    else:
+        logger.warning(
+            '%s Don\'t know what to do with link target "%s".'
+            % (LOG_PREFIX, original_url)
+        )
+        return original_url
+
+    if new_url == original_url:
+        logger.info('%s Link "%s" unchanged.' % (LOG_PREFIX, new_url))
+    else:
+        logger.info('%s Link "%s" --> "%s"' % (LOG_PREFIX, original_url, new_url))
     return new_url
 
 
@@ -41,6 +88,9 @@ def render_link_open(self, tokens, idx, options, env):
 
     tokens[idx].attrSet(
         "href", _maintain_pelican_placeholders(tokens[idx].attrGet("href"))
+    )
+    tokens[idx].attrSet(
+        "href", _relative_links_for_pelican(tokens[idx].attrGet("href"))
     )
     # pass token to default renderer.
     return self.renderToken(tokens, idx, options, env)
@@ -56,6 +106,9 @@ def render_image(self, tokens, idx, options, env):
 
     tokens[idx].attrSet(
         "src", _maintain_pelican_placeholders(tokens[idx].attrGet("src"))
+    )
+    tokens[idx].attrSet(
+        "src", _relative_links_for_pelican(tokens[idx].attrGet("src"))
     )
     # pass token to default renderer.
     return self.image(tokens, idx, options, env)
