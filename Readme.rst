@@ -73,6 +73,7 @@ COMMONMARK_HTML_PARSER = "html.parser"
   Will be set to "lxml" is it is installed. This is the parser that Beautiful
   Soup uses.
 
-COMMONMARK_DEBUG = False
-  If you want to see the debugging for the Markdown-IT library (very verbose).
-  (Not yet implemented; we need regex filtering first.)
+COMMONMARK_MARKDOWN_LOG_LEVEL = logging.WARNING
+  If you want to see the debugging for the Markdown-IT library change this to
+  ``logging.DEBUG`` (but be warned that it is *very* verbose).
+

@@ -35,25 +35,24 @@ def check_settings(pelican):
             pelican.settings["COMMONMARK_HTML_PARSER"] = "lxml"
         else:
             pelican.settings["COMMONMARK_HTML_PARSER"] = "html.parser"
-        logging.debug(
+        logger.debug(
             '%s COMMONMARK_HTML_PARSER set to "%s"'
             % (LOG_PREFIX, pelican.settings["COMMONMARK_HTML_PARSER"])
         )
     else:
-        logging.debug(
+        logger.debug(
             '%s COMMONMARK_HTML_PARSER previously set manually. Is "%s".'
             % (LOG_PREFIX, pelican.settings["COMMONMARK_HTML_PARSER"])
         )
 
-    # if "COMMONMARK_DEBUG" in pelican.settings.keys() and pelican.settings["COMMONMARK_DEBUG"]:
-    #     if "LOG_FILTER" in pelican.settings.keys():
-    #         pelican.settings["LOG_FILTER"].extend(COMMONMARK_MARKDOWN_DEBUG)
-    #     else:
-    #         pelican.settings["LOG_FILTER"] = COMMONMARK_MARKDOWN_DEBUG
-    #     logging.debug(
-    #         '%s Not Logging CommonMark debugging'
-    #         % (LOG_PREFIX)
-    #     )
+    if "COMMONMARK_MARKDOWN_LOG_LEVEL" in pelican.settings.keys() and pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"]:
+        logging.getLogger("markdown_it").setLevel(pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"])
+    else:
+        pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"] = logging.WARNING
+    logger.debug(
+        '%s COMMONMARK_MARKDOWN_LOG_LEVEL set to "%s"'
+        % (LOG_PREFIX, pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"])
+    )
 
 
 def commonmark_version(pelican):
