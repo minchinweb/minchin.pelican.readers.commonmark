@@ -4,14 +4,15 @@ Functionality run before the Markdown render is run.
 - pull front matter from Source file.
 - take tag only lines and add them to metadata and remove them from the body
 """
-from datetime import datetime
 import logging
+import re
 
 import yaml
 
-from pelican.utils import SafeDatetime
+from pelican.contents import Tag
 
 from .constants import LOG_PREFIX
+from .reader_utils import tag_regex, tag_only_line_regex
 
 logger = logging.getLogger(__name__)
 
@@ -166,7 +167,7 @@ def read_front_matter(self, raw_text, metadata, md):
     return md_base_content, metadata
 
 
-def remove_tag_only_lines(self, raw_text, metadata):
+def remove_tag_only_lines(self, raw_text):
     """
     Read front matter and split from main body text.
 
@@ -178,5 +179,18 @@ def remove_tag_only_lines(self, raw_text, metadata):
         content (str): Raw source text, now without tags
         metadata (dict): Metadata of the source text.
     """
+    # find all tags
+    tag_symbols = self.settings["COMMONMARK_INLINE_TAG_SYMBOLS"]
+    found_tags = [
+        Tag(raw_tag.lower(), self.settings) for raw_tag in re.findall(tag_regex(tag_symbols), raw_text)
+    ]
 
-    return raw_text, metadata
+    # remove tag-only lines
+    less_raw_text = []
+    multi_tag_regex = tag_only_line_regex(tag_symbols)
+    for line in raw_text:
+        if multi_tag_regex.match(line):
+            line = ""
+        less_raw_text.append(line)
+
+    return less_raw_text, found_tags

@@ -77,3 +77,6 @@ COMMONMARK_MARKDOWN_LOG_LEVEL = logging.WARNING
   If you want to see the debugging for the Markdown-IT library change this to
   ``logging.DEBUG`` (but be warned that it is *very* verbose).
 
+COMMONMARK_INLINE_TAG_SYMBOLS = "#"
+  Tag symbols used before inline tags. If a line contains only tags, it will be
+  removed from the body of the entry.

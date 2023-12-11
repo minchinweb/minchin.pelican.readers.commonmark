@@ -3,6 +3,7 @@ Functions to extend the CommonMark Reader functionality.
 """
 from datetime import date, datetime
 import logging
+import re
 
 from pelican.contents import Author, Tag
 from pelican.readers import _DISCARD, MarkdownReader, ensure_metadata_list
@@ -141,3 +142,21 @@ def clean_authors(value, settings=dict()):
         return _DISCARD
 
     return [Author(tag, settings) for tag in ensure_metadata_list(value)] or _DISCARD
+
+def tag_regex(tag_symbols):
+    """
+    Compile tag symbol regex.
+
+    Used for pulling out inline tags.
+    """
+    pattern = rf"(?<!\S)([{tag_symbols}][-+*#/\w]+)"
+    return re.compile(pattern)
+
+def tag_only_line_regex(tag_symbols):
+    """
+    Compile tag-only line regex.
+
+    Used to find and remove tag-only lines within the body of the document.    
+    """
+    pattern = rf"^\s*([{tag_symbols}][-+*#/\w]+\s*)+$"
+    return re.compile(pattern)

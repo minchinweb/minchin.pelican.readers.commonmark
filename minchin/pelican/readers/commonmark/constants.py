@@ -74,3 +74,5 @@ PELICAN_LINK_PLACEHOLDERS = [
     "static",
     "attach",
 ]
+
+DEFAULT_TAG_SYMBOLS = "#"

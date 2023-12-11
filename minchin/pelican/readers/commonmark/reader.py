@@ -23,6 +23,7 @@ from .reader_utils import (
     load_enables,
     load_extensions,
 )
+from pelican.readers import _DISCARD
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +61,7 @@ class MDITReader(BaseReader):
             # text = list(fp.splitlines())
             raw_text = fp
 
-        # content, tag_list = remove_tag_only_lines(self, raw_text, dict())
+        content, tag_list = remove_tag_only_lines(self, raw_text)
         content, metadata = read_front_matter(
             self=self,
             raw_text=raw_text,
@@ -68,6 +69,12 @@ class MDITReader(BaseReader):
             metadata=dict(),
             md=md,
         )
+
+        # add back in the found tags
+        if tag_list and ("tags" not in metadata.keys() or metadata["tags"] == _DISCARD):
+            metadata["tags"] = []
+        for tag in tag_list:
+            metadata["tags"].append(tag)
 
         # add path to metadata
         metadata["path"] = filename

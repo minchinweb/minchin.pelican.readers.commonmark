@@ -2,7 +2,7 @@ import logging
 
 from .constants import (
     COMMONMARK_DEFAULT_CONFIG,
-    COMMONMARK_MARKDOWN_DEBUG,
+    DEFAULT_TAG_SYMBOLS,
     LOG_PREFIX,
     __url__,
     __version__,
@@ -45,8 +45,25 @@ def check_settings(pelican):
             % (LOG_PREFIX, pelican.settings["COMMONMARK_HTML_PARSER"])
         )
 
-    if "COMMONMARK_MARKDOWN_LOG_LEVEL" in pelican.settings.keys() and pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"]:
-        logging.getLogger("markdown_it").setLevel(pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"])
+    if not "COMMONMARK_INLINE_TAG_SYMBOLS" in pelican.settings.keys():
+        pelican.settings["COMMONMARK_INLINE_TAG_SYMBOLS"] = DEFAULT_TAG_SYMBOLS
+        logger.debug(
+            '%s COMMONMARK_INLINE_TAG_SYMBOLS set to default ("%s").'
+            % (LOG_PREFIX, pelican.settings["COMMONMARK_INLINE_TAG_SYMBOLS"])
+        )
+    else:
+        logger.debug(
+            '%s COMMONMARK_INLINE_TAG_SYMBOLS (plugin settings) previously set manually to "%s".'
+            % (LOG_PREFIX, pelican.settings["COMMONMARK_INLINE_TAG_SYMBOLS"])
+        )
+
+    if (
+        "COMMONMARK_MARKDOWN_LOG_LEVEL" in pelican.settings.keys()
+        and pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"]
+    ):
+        logging.getLogger("markdown_it").setLevel(
+            pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"]
+        )
     else:
         pelican.settings["COMMONMARK_MARKDOWN_LOG_LEVEL"] = logging.WARNING
     logger.debug(
