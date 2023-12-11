@@ -49,6 +49,25 @@ include the frontmatter plugin.
 If the frontmatter plugin is not active, the plugin should parse metadata in
 the same matter as "vanilla" Pelican.
 
+Additional Features
+-------------------
+
+In addition to the "base" CommonMark parser/render, this Reader offers the
+following additional features:
+
+- Title from H1: if a post's title isn't defined in the metadata block, it will
+  try and pull a title from the first H1 tag in the body of the entry.
+- Remove duplicated H1 title: If the first H1 tag in the post matches the title
+  as defined in the metadata block, it will remove the H1 tag. It is assumed
+  that the theme will include the title as a H1 tag in the generated site.
+- Relative links ready for Pelican: relative links included in the body of
+  posts will have ``{filename}`` or ``{static}`` prefixed to them, so that
+  Pelican can maintain these links even if the generated site has a different
+  layout from your source files.
+- Code block highlighting: Pygments is called to allow code block syntax
+  highlighting. Generated site HTML will display code highlighting if you
+  include (or link to) a Pygments CSS file.
+
 Pelican Settings
 ----------------
 

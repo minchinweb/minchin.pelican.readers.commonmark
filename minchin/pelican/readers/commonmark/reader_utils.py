@@ -143,6 +143,7 @@ def clean_authors(value, settings=dict()):
 
     return [Author(tag, settings) for tag in ensure_metadata_list(value)] or _DISCARD
 
+
 def tag_regex(tag_symbols):
     """
     Compile tag symbol regex.
@@ -152,11 +153,12 @@ def tag_regex(tag_symbols):
     pattern = rf"(?<!\S)([{tag_symbols}][-+*#/\w]+)"
     return re.compile(pattern)
 
+
 def tag_only_line_regex(tag_symbols):
     """
     Compile tag-only line regex.
 
-    Used to find and remove tag-only lines within the body of the document.    
+    Used to find and remove tag-only lines within the body of the document.
     """
     pattern = rf"^\s*([{tag_symbols}][-+*#/\w]+\s*)+$"
     return re.compile(pattern)

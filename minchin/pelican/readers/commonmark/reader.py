@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
 
 from pelican.readers import (
+    _DISCARD,
     DUPLICATES_DEFINITIONS_ALLOWED,
     METADATA_PROCESSORS,
     BaseReader,
@@ -23,7 +24,6 @@ from .reader_utils import (
     load_enables,
     load_extensions,
 )
-from pelican.readers import _DISCARD
 
 logger = logging.getLogger(__name__)
 

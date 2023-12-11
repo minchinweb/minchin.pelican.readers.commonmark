@@ -10,7 +10,7 @@ from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
-from .constants import LOG_PREFIX, SOURCE_EXTS, STATIC_EXTS, PELICAN_LINK_PLACEHOLDERS
+from .constants import LOG_PREFIX, PELICAN_LINK_PLACEHOLDERS, SOURCE_EXTS, STATIC_EXTS
 
 logger = logging.getLogger(__name__)
 
@@ -73,9 +73,9 @@ def _relative_links_for_pelican(original_url):
         return original_url
 
     if new_url == original_url:
-        logger.info('%s Link "%s" unchanged.' % (LOG_PREFIX, new_url))
+        logger.debug('%s Link "%s" unchanged.' % (LOG_PREFIX, new_url))
     else:
-        logger.info('%s Link "%s" --> "%s"' % (LOG_PREFIX, original_url, new_url))
+        logger.debug('%s Link "%s" --> "%s"' % (LOG_PREFIX, original_url, new_url))
     return new_url
 
 
@@ -107,9 +107,7 @@ def render_image(self, tokens, idx, options, env):
     tokens[idx].attrSet(
         "src", _maintain_pelican_placeholders(tokens[idx].attrGet("src"))
     )
-    tokens[idx].attrSet(
-        "src", _relative_links_for_pelican(tokens[idx].attrGet("src"))
-    )
+    tokens[idx].attrSet("src", _relative_links_for_pelican(tokens[idx].attrGet("src")))
     # pass token to default renderer.
     return self.image(tokens, idx, options, env)
 

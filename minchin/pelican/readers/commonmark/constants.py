@@ -25,17 +25,6 @@ COMMONMARK_DEFAULT_CONFIG = {
     ],
 }
 
-COMMONMARK_MARKDOWN_DEBUG = [
-    #     (logging.DEBUG, 'entering fence'),
-    #     (logging.DEBUG, 'entering hr'),
-    #     (logging.DEBUG, 'entering blockquote'),
-    #     (logging.DEBUG, 'entering lheading'),
-    #     (logging.DEBUG, 'entering paragraph'),
-    #     (logging.DEBUG, 'entering list'),
-    #     (logging.DEBUG, 'entering html_block'),
-    #     (logging.DEBUG, 'entering reference'),
-]
-
 SOURCE_EXTS = tuple(
     [
         ".md",

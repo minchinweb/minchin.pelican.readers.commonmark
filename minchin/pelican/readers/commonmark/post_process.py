@@ -3,6 +3,7 @@ Functionality for after the Markdown has been renders, to prepare it for
 Pelican.
 """
 import logging
+from pathlib import Path
 
 from bs4 import BeautifulSoup
 
@@ -31,16 +32,18 @@ def h1_as_title(content, metadata, settings):
     if "title" in metadata.keys():
         return content, metadata
 
+    relative_path = Path(metadata["path"]).relative_to(settings["PATH"])
+
     soup = BeautifulSoup(content, settings["COMMONMARK_HTML_PARSER"])
     try:
         title_tag = soup.select("h1")[0]
     except:
         # TODO: fix raw except
-        logger.info('%s Cannot pull H1 from "%s".' % (LOG_PREFIX, metadata["path"]))
+        logger.info('%s Cannot pull H1 from "%s".' % (LOG_PREFIX, relative_path))
     else:
         my_title = title_tag.text.strip()
         logger.info(
-            '%s title set to "%s" for "%s"' % (LOG_PREFIX, my_title, metadata["path"])
+            '%s title set to "%s" for "%s"' % (LOG_PREFIX, my_title, relative_path)
         )
         metadata["title"] = my_title
 
@@ -74,23 +77,31 @@ def remove_duplicate_h1(content, metadata, settings):
         return content
     else:
         metadata_title = metadata["title"]
+        # metadata_title = metadata_title.strip()
+        # # if "title", drop it out of the <p> tag
+        # if metadata_title.startswith("<p>") and metadata_title.endswith("</p>"):
+        #     metadata_title = metadata_title[3:-4]
 
     soup = BeautifulSoup(content, settings["COMMONMARK_HTML_PARSER"])
     try:
         title_tag = soup.select("h1")[0]
-    except:
-        # TODO: fix raw except
+    except IndexError:
         return content
     else:
         h1_title = title_tag.text.strip()
         # replace m-dash for "raw" version
         h1_title = h1_title.replace("—", "--")
+        logger.debug(
+            '%s Compare titles: "%s" and "%s"' % (LOG_PREFIX, metadata_title, h1_title)
+        )
         if metadata_title == h1_title:
             title_tag.decompose()
             content = soup.prettify()
+
+            relative_path = Path(metadata["path"]).relative_to(settings["PATH"])
             logger.info(
                 '%s duplicate H1 (aka "title") removed from "%s"'
-                % (LOG_PREFIX, metadata["path"])
+                % (LOG_PREFIX, relative_path)
             )
 
     return content

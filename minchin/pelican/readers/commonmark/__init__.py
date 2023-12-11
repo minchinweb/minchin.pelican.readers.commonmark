@@ -9,6 +9,7 @@ from .reader import add_commonmark_reader
 # hide Markdown-IT logging (otherwise there's hundreds of lines...)
 logging.getLogger("markdown_it").setLevel(logging.WARNING)
 
+
 def register():
     """Register the plugin pieces with Pelican."""
 

@@ -12,7 +12,7 @@ import yaml
 from pelican.contents import Tag
 
 from .constants import LOG_PREFIX
-from .reader_utils import tag_regex, tag_only_line_regex
+from .reader_utils import tag_only_line_regex, tag_regex
 
 logger = logging.getLogger(__name__)
 
@@ -182,7 +182,8 @@ def remove_tag_only_lines(self, raw_text):
     # find all tags
     tag_symbols = self.settings["COMMONMARK_INLINE_TAG_SYMBOLS"]
     found_tags = [
-        Tag(raw_tag.lower(), self.settings) for raw_tag in re.findall(tag_regex(tag_symbols), raw_text)
+        Tag(raw_tag.lower(), self.settings)
+        for raw_tag in re.findall(tag_regex(tag_symbols), raw_text)
     ]
 
     # remove tag-only lines
