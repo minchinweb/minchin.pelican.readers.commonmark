@@ -67,6 +67,7 @@ following additional features:
 - Code block highlighting: Pygments is called to allow code block syntax
   highlighting. Generated site HTML will display code highlighting if you
   include (or link to) a Pygments CSS file.
+- removes "tag only" lines from the body of your entries.
 
 Pelican Settings
 ----------------
