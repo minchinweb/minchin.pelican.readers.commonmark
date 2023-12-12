@@ -123,7 +123,7 @@ def _get_lexer(info, content):
         else:
             lexer = guess_lexer(content)
     except ClassNotFound:
-        lexer = TextLexer
+        lexer = TextLexer()
     return lexer
 
 
@@ -136,6 +136,15 @@ def render_fence(self, tokens, idx, options, env):
 
     token = tokens[idx]
     lexer = _get_lexer(token.info, token.content)
+
+    logger.log(5, '%s token.content: "%s", lexer: %s' % (
+        LOG_PREFIX, token.content, lexer)
+    )
+
+    # if no code to highlight, bail here
+    if not token.content:
+        return ""
+    
     output = highlight(
         token.content,
         lexer,
