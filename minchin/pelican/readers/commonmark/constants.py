@@ -1,5 +1,3 @@
-import logging
-
 import mdit_py_plugins.deflist
 import mdit_py_plugins.footnote
 import mdit_py_plugins.front_matter
