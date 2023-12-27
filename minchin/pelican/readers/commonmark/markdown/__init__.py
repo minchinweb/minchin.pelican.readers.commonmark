@@ -10,7 +10,7 @@ from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
-from .constants import LOG_PREFIX, PELICAN_LINK_PLACEHOLDERS, SOURCE_EXTS, STATIC_EXTS
+from ..constants import LOG_PREFIX, PELICAN_LINK_PLACEHOLDERS, SOURCE_EXTS, STATIC_EXTS
 
 logger = logging.getLogger(__name__)
 

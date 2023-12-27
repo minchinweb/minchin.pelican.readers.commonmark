@@ -1,7 +1,6 @@
 from copy import copy
 import logging
 
-from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
 
 from pelican.readers import (
@@ -14,15 +13,17 @@ from pelican.utils import pelican_open
 
 from .constants import LOG_PREFIX
 from .markdown import render_fence, render_image, render_link_open
-from .post_process import h1_as_title, remove_duplicate_h1
-from .pre_process import read_front_matter, remove_tag_only_lines
-from .reader_utils import (
+from .markdown.post_process import h1_as_title, remove_duplicate_h1
+from .markdown.pre_process import read_front_matter, remove_tag_only_lines
+from .utils.reader import (
+    load_enables,
+    load_extensions,
+)
+from .utils.pelican import (
     clean_authors,
     clean_dates,
     clean_tags,
-    get_file_extensions,
-    load_enables,
-    load_extensions,
+    get_markdown_file_extensions,
 )
 
 logger = logging.getLogger(__name__)
@@ -37,7 +38,7 @@ METADATA_PROCESSORS_MDIT["authors"] = clean_authors
 
 class MDITReader(BaseReader):
     enabled = True
-    file_extensions = get_file_extensions()
+    file_extensions = get_markdown_file_extensions()
     extensions = None
 
     def __init__(self, *args, **kwargs):

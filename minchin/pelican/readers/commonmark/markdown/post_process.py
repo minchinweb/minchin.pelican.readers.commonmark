@@ -7,7 +7,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from .constants import LOG_PREFIX
+from ..constants import LOG_PREFIX
 
 logger = logging.getLogger(__name__)
 

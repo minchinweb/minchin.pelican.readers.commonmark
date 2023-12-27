@@ -11,8 +11,8 @@ import yaml
 
 from pelican.contents import Tag
 
-from .constants import LOG_PREFIX
-from .reader_utils import markdown_header_regex, tag_only_line_regex, tag_regex
+from ..constants import LOG_PREFIX
+from ..reader_utils import markdown_header_regex, tag_only_line_regex, tag_regex
 
 logger = logging.getLogger(__name__)
 
