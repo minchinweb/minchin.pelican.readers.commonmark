@@ -36,7 +36,7 @@ SOURCE_EXTS = tuple(
     ]
 )
 
-STATIC_EXTS = tuple(
+IMAGE_EXTS = tuple(
     [
         ".gif",
         ".tif",
@@ -45,12 +45,28 @@ STATIC_EXTS = tuple(
         ".jpg",
         ".jpeg",
         ".png",
-        ".pdf",
+        # ".pdf",
         ".svg",
-        ".mp3",
+    ]
+)
+VIDEO_EXTS = tuple(
+    [
         ".mp4",
     ]
 )
+AUDIO_EXTS = tuple(
+    [
+        ".mp3",
+        ".flac",
+    ]
+)
+_OTHER_STATIC_EXTS = tuple(
+    [
+        ".pdf",
+    ]
+)
+
+STATIC_EXTS = IMAGE_EXTS + VIDEO_EXTS + AUDIO_EXTS + _OTHER_STATIC_EXTS
 
 PELICAN_LINK_PLACEHOLDERS = [
     "author",
@@ -63,3 +79,16 @@ PELICAN_LINK_PLACEHOLDERS = [
 ]
 
 DEFAULT_TAG_SYMBOLS = "#"
+
+GENERATOR_PAGE_LISTS = [
+    "articles",
+    "translations",
+    "hidden_articles",
+    "hidden_translations",
+    "drafts",
+    "draft_translations",
+    "pages",
+    "hidden_pages",
+    "draft_pages",
+    "staticfiles",
+]

@@ -18,6 +18,7 @@ def get_markdown_file_extensions():
     _pelican_markdown_reader = MarkdownReader({"MARKDOWN": {}})
     return _pelican_markdown_reader.file_extensions
 
+
 def clean_dates(value, settings=dict()):
     """
     Given a value, tries to turn it into a datetime.

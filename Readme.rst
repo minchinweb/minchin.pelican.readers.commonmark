@@ -30,7 +30,8 @@ Changes Required from "Vanilla" Pelican
 
 This plugin uses the Markdown-IT front matter by default. This expects front
 matter (metadata) to be at the top of the file, between lines of three dashes
-(e.g. ``---``). ("Vanilla" Pelican doesn't require these marker lines.)
+(e.g. ``---``). ("Vanilla" Pelican doesn't require these marker lines.) Front
+matter is then phrased as YAML.
 
 An example::
 
@@ -100,3 +101,14 @@ COMMONMARK_MARKDOWN_LOG_LEVEL = logging.WARNING
 COMMONMARK_INLINE_TAG_SYMBOLS = "#"
   Tag symbols used before inline tags. If a line contains only tags, it will be
   removed from the body of the entry.
+
+Prior Art
+---------
+
+This plugin relies on much work that has gone before, both explicitly for code
+and implicitely for the encouragement of this even being possible. This list is
+sadly incomplete, but in particlar:
+
+- Johnathan Sundqvist's `Obisidian Plugin for Pelican
+  <https://github.com/jonathan-s/pelican-obsidian>`_ (and forks) -- in
+  particular, for providing inspiration on how to deal with Wiki-style links

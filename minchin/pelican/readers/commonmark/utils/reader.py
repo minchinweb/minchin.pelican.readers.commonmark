@@ -1,6 +1,7 @@
 """
 Functions to extend the CommonMark Reader functionality.
 """
+
 import logging
 
 from ..constants import LOG_PREFIX
