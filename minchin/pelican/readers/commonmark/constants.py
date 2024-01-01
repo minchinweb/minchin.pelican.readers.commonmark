@@ -36,8 +36,9 @@ SOURCE_EXTS = tuple(
     ]
 )
 
-IMAGE_EXTS = tuple(
+STATIC_EXTS = tuple(
     [
+        # images
         ".gif",
         ".tif",
         ".tiff",
@@ -45,28 +46,16 @@ IMAGE_EXTS = tuple(
         ".jpg",
         ".jpeg",
         ".png",
-        # ".pdf",
         ".svg",
-    ]
-)
-VIDEO_EXTS = tuple(
-    [
+        # video
         ".mp4",
-    ]
-)
-AUDIO_EXTS = tuple(
-    [
+        # audio
         ".mp3",
         ".flac",
-    ]
-)
-_OTHER_STATIC_EXTS = tuple(
-    [
+        # other
         ".pdf",
     ]
 )
-
-STATIC_EXTS = IMAGE_EXTS + VIDEO_EXTS + AUDIO_EXTS + _OTHER_STATIC_EXTS
 
 PELICAN_LINK_PLACEHOLDERS = [
     "author",
