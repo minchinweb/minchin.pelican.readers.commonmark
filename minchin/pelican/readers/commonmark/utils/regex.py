@@ -19,3 +19,14 @@ def tag_only_line_regex(tag_symbols):
     """
     pattern = rf"^\s*([{tag_symbols}][-+*#/\w]+\s*)+$"
     return re.compile(pattern)
+
+
+def markdown_header_regex():
+    """
+    Compile header hashmark regex.
+
+    Used to find when we have just the multiple hashmarks used to denote a
+    Markdown header.
+    """
+    pattern = r"#+$"
+    return re.compile(pattern)

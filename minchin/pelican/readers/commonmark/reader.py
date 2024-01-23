@@ -59,6 +59,7 @@ class MDITReader(BaseReader):
             # text = list(fp.splitlines())
             raw_text = fp
 
+        # pre-process
         content, tag_list = remove_tag_only_lines(self, raw_text)
         content, metadata = read_front_matter(
             self=self,
@@ -77,8 +78,10 @@ class MDITReader(BaseReader):
         # add path to metadata
         metadata["path"] = filename
 
+        # process (the Markdown)
         html_content = md.render(content)
 
+        # post-process
         html_content, metadata = h1_as_title(html_content, metadata, self.settings)
         html_content = remove_duplicate_h1(html_content, metadata, self.settings)
 

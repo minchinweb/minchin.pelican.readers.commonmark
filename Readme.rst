@@ -112,3 +112,9 @@ sadly incomplete, but in particlar:
 - Johnathan Sundqvist's `Obisidian Plugin for Pelican
   <https://github.com/jonathan-s/pelican-obsidian>`_ (and forks) -- in
   particular, for providing inspiration on how to deal with Wiki-style links
+
+To Implement/Fix
+----------------
+
+- fix double titles on first entries with styling
+- Markdown plugin for checklists
