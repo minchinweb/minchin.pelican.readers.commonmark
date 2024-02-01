@@ -63,7 +63,7 @@ class MDITReader(BaseReader):
         content, tag_list = remove_tag_only_lines(self, raw_text)
         content, metadata = read_front_matter(
             self=self,
-            raw_text=raw_text,
+            raw_text=content,
             # metadata=copy(metadata),
             metadata=dict(),
             md=md,

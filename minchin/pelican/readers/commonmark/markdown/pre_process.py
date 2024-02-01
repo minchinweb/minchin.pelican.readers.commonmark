@@ -179,21 +179,25 @@ def remove_tag_only_lines(self, raw_text):
         content (str): Raw source text, now without tags
         metadata (dict): Metadata of the source text.
     """
+    # what level to log this function at
+    # 5 is below "DEBUG" level
+    LOG_LEVEL = 5
+
     # find all tags
     tag_symbols = self.settings["COMMONMARK_INLINE_TAG_SYMBOLS"]
     found_raw_tags = [tag for tag in re.findall(tag_regex(tag_symbols), raw_text)]
-    logger.log(5, "tags 1 %s" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 1 %s" % found_raw_tags)
 
     # reject tag if it is only a series of hashmarks (used for headers in
     # Markdown)
     found_raw_tags = [
         tag for tag in found_raw_tags if not markdown_header_regex().match(tag)
     ]
-    logger.log(5, "tags 2 %s" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 2 %s" % found_raw_tags)
 
     # convert to lowercase
     found_raw_tags = [tag.lower() for tag in found_raw_tags]
-    logger.log(5, "tags 3 %s" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 3 %s" % found_raw_tags)
 
     # remove the tag symbol from the front of the tag.
     # Assume it is only a single tag symbol
@@ -204,26 +208,34 @@ def remove_tag_only_lines(self, raw_text):
         for tag in found_raw_tags
         if tag.startswith(tag_symbols_tuple)
     ]
-    logger.log(5, "tags 4 %s" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 4 %s" % found_raw_tags)
 
     # remove empty tags, like blank strings
     found_raw_tags = [tag for tag in found_raw_tags if tag]
-    logger.log(5, "tags 5 %s" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 5 %s" % found_raw_tags)
 
     # remove duplicates
     found_raw_tags = set(found_raw_tags)
-    logger.log(5, "tags 6 %s" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 6 %s" % found_raw_tags)
 
     # convert to Pelican tags
     found_tags = [Tag(tag, self.settings) for tag in found_raw_tags]
-    logger.log(5, "tags 7 %r" % found_raw_tags)
+    logger.log(LOG_LEVEL, "tags 7 %r" % found_raw_tags)
 
     # remove tag-only lines
-    less_raw_text = []
+    raw_text_2 = []
     multi_tag_regex = tag_only_line_regex(tag_symbols)
-    for line in raw_text:
+    # logger.log(LOG_LEVEL, "tags 8 %s" % raw_text)
+    for line in raw_text.splitlines():
+        logger.log(LOG_LEVEL, "tags 9 %s %s" % (bool(multi_tag_regex.match(line)), line))
         if multi_tag_regex.match(line):
-            line = ""
-        less_raw_text.append(line)
+            # line = ""
+            raw_text_2.append("")
+            logger.log(LOG_LEVEL, "tags 9a skipping this line!")
+        else:
+            raw_text_2.append(line)
 
-    return less_raw_text, found_tags
+    # convert "raw text" back from a list to a string
+    raw_text_3 = "\n".join(raw_text_2)
+
+    return raw_text_3, found_tags
