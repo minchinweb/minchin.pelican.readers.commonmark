@@ -76,7 +76,7 @@ Pelican Settings
 COMMONMARK = {"extensions": [<plugin classes>], "enable": [<str of name of features>]}
   (To be defined). Used to configure which CommonMark extensions are loaded by
   the plugin. The default is available at
-  `minchin.pelican.readers.commonmark.constants.COMMONMARK_DEFAULT_CONFIG`.
+  ``minchin.pelican.readers.commonmark.constants.COMMONMARK_DEFAULT_CONFIG``.
 
   This is a dictionary, expecting two keys: ``extensions`` and ``enable``, each
   with a list as the key. For *extensions*, the list items should be the
