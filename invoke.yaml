@@ -7,11 +7,17 @@ releaser:
     source: minchin
     changelog: CHANGELOG.rst
     version: minchin/pelican/readers/commonmark/constants.py
-    test_command: none
+    test_command: pytest
+    doc_command: none
     version_bump: none
     extra_packages:
         test:
             - pelican
+            - markdown-it-py
+            - mdit-py-plugins
+            - beautifulsoup4
+            - pyyaml
+            - semantic-version
             - setuptools
             - wheel
         pypi:

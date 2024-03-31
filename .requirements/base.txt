@@ -46,6 +46,8 @@ python-dateutil==2.9.0.post0
     # via pelican
 pytz==2024.1
     # via feedgenerator
+pyyaml==6.0.1
+    # via -r .\.requirements\base.in
 rich==13.7.1
     # via pelican
 semantic-version==2.10.0
