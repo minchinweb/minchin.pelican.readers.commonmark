@@ -4,5 +4,5 @@
 #
 #    pip-compile '.\.requirements\lxml.in'
 #
-lxml==4.9.3
+lxml==5.1.1
     # via -r .\.requirements\lxml.in
