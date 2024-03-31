@@ -1,16 +1,19 @@
 CommonMark Reader for Pelican
 =============================
 
-*Powered by Markdown-IT*
+*Powered by Markdown-IT-Py*
 
 This plugin is intended to be a roughly drop-in replacement for Pelican's
 built-in Markdown Reader (the "reader" is the part of Pelican that turns your
-source files into something Pelican can assemble into a website.) As this uses
-a CommonMark implementation of Markdown, there are be subtle differences when
-compared to the output of Pelican's built in Markdown Reader; if you are
-particular about your site output, it may require building the site with the
-two readers, and running a diff on the two outputs, and tweaking your source
-files (or adding Markdown plugins here) until the output is what you want.
+source files into something Pelican can assemble into a website). As this uses
+a CommonMark implementation of Markdown (specifically, `markdown-it-py
+<https://github.com/executablebooks/markdown-it-py>`_, there are be subtle
+differences when compared to the output of Pelican's built in Markdown Reader
+(which relies on `Python-Markdown <https://python-markdown.github.io/>`_);
+if you are particular about your site output, it may require building the site
+with the two readers, and running a diff on the two outputs, and tweaking your
+source files (or adding Markdown plugins here) until the output is what you
+want.
 
 When I set out to build this plugin, I (naively) thought I would stick to a
 "pure" CommonMark/Markdown implementation, but I quickly realized that I like
@@ -18,7 +21,7 @@ the extensions to Markdown I use, and I wasn't ready to give them up. That
 said, I've tried to keep them generally mild. The default configuration will
 automatically include all the plugins that I use by default, although you can
 add or remove from that list as you wish. Currently enabled CommonMark
-extensions:
+extensions are:
 
 - front matter
 - footnotes
@@ -28,27 +31,45 @@ extensions:
 Changes Required from "Vanilla" Pelican
 ---------------------------------------
 
-This plugin uses the Markdown-IT front matter by default. This expects front
-matter (metadata) to be at the top of the file, between lines of three dashes
-(e.g. ``---``). ("Vanilla" Pelican doesn't require these marker lines.) Front
-matter is then phrased as YAML.
+This (Pelican) plugin uses the Markdown-IT front matter (plugin) by default.
+This expects front matter (i.e. metadata) to be at the top of the file, between
+lines of three dashes (e.g. ``---``). ("Vanilla" Pelican doesn't require these
+marker lines.) Front matter is then phrased as YAML.
 
 An example::
 
   ---
-  title: Frontmatter Test
+  title: Front matter Test
   Category: test
   date: 2023-11-19 14:56
   ---
 
-  This is a test of the frontmatter plugin.
+  This is a test of the front matter plugin.
 
 If you don't want to (or can't) update your source files, you can provide a
 customized ``COMMONMARK`` settings (in your ``pelicanconf.py``) that doesn't
 include the frontmatter plugin.
 
 If the frontmatter plugin is not active, the plugin should parse metadata in
-the same matter as "vanilla" Pelican.
+the same matter as "vanilla" Pelican. Note that this has been less tested, as I
+personally use the front matter plugin.
+
+To rely on "vanilla Pelican" front matter (generally, not recommended):
+
+.. code-block:: python
+
+    # pelicanconf.py
+
+    from minchin.pelican.readers.commonmark.constants import COMMONMARK_DEFAULT_CONFIG
+
+    # other Pelican settings
+
+    # start with default configuration
+    COMMONMARK = COMMONMARK_DEFAULT_CONFIG
+    # add remove Markdown-IT's front matter plugin
+    for i, plugin in enumerate(COMMONMARK["extensions"]):
+        if plugin.__name__ == "front_matter_plugin":
+            del a["extensions"][i]
 
 Additional Features
 -------------------
@@ -69,6 +90,8 @@ following additional features:
   highlighting. Generated site HTML will display code highlighting if you
   include (or link to) a Pygments CSS file.
 - removes "tag only" lines from the body of your entries.
+- "cleans" dates provided in front matter, so they are provided to Pelican as
+  ``datetimes`` rather than strings.
 
 Pelican Settings
 ----------------
@@ -102,6 +125,35 @@ COMMONMARK_INLINE_TAG_SYMBOLS = "#"
   Tag symbols used before inline tags. If a line contains only tags, it will be
   removed from the body of the entry.
 
+Extended Abilities
+------------------
+
+I have written a *markdown-it-py* plugin to support "fancy"
+tasklists/checkboxes, but it is not activated by default.
+
+This requires separate installation and activation within *Pelican*, which you
+might do like this:
+
+.. code-block:: python
+
+    # pelicanconf.py
+
+    from minchin.pelican.readers.commonmark.constants import COMMONMARK_DEFAULT_CONFIG
+    import minchin.md_it.fancy_tasklists
+
+    # other Pelican settings
+
+    # start with default configuration
+    COMMONMARK = COMMONMARK_DEFAULT_CONFIG
+    # add fancy tasklists
+    COMMONMARK["extensions"].append(
+        minchin.md_it.fancy_tasklists.fancy_tasklists_plugin,
+    )
+
+See `sample rendered checkboxes
+<https://github.com/MinchinWeb/seafoam/blob/master/docs/screenshots/2.10.0/fancy-checkboxes.png>`_.
+
+
 Prior Art
 ---------
 
@@ -113,8 +165,7 @@ sadly incomplete, but in particlar:
   <https://github.com/jonathan-s/pelican-obsidian>`_ (and forks) -- in
   particular, for providing inspiration on how to deal with Wiki-style links
 
-To Implement/Fix
-----------------
+.. To Implement/Fix
+.. ----------------
 
-- fix double titles on first entries with styling
-- Markdown plugin for checklists
+

@@ -4,6 +4,8 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
-- **feature**: separate Wikilinks processing into it's own plugin (as it can't
-  be run as part of the reader because processing the URL of each page is
+- :support:`-` document support for Fancy Tasklists (Markdown) plugin.
+- :support:`-` separate Wikilinks processing into it's own (Pelican) `plugin
+  <https://github.com/MinchinWeb/minchin.pelican.plugins.wikilinks>`_ (as it
+  can't be run as part of the reader because processing the URL of each page is
   needed.)
