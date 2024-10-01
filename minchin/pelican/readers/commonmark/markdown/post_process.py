@@ -2,6 +2,7 @@
 Functionality for after the Markdown has been renders, to prepare it for
 Pelican.
 """
+
 import logging
 from pathlib import Path
 

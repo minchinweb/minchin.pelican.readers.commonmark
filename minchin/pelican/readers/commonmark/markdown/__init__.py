@@ -52,7 +52,7 @@ def _relative_links_for_pelican(original_url):
     # remove query strings
     test_url, _, _ = test_url.partition("?")
     # assumed external links
-    if test_url.startswith(("http://", "https://", "//", "mailto:", "tel:")):
+    if test_url.startswith(("http://", "https://", "//", "mailto:", "tel:", "#")):
         new_url = original_url
 
     # don't double up on placeholders

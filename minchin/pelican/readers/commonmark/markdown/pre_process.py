@@ -4,6 +4,7 @@ Functionality run before the Markdown render is run.
 - pull front matter from Source file.
 - take tag only lines and add them to metadata and remove them from the body
 """
+
 import logging
 import re
 
@@ -227,7 +228,9 @@ def remove_tag_only_lines(self, raw_text):
     multi_tag_regex = tag_only_line_regex(tag_symbols)
     # logger.log(LOG_LEVEL, "tags 8 %s" % raw_text)
     for line in raw_text.splitlines():
-        logger.log(LOG_LEVEL, "tags 9 %s %s" % (bool(multi_tag_regex.match(line)), line))
+        logger.log(
+            LOG_LEVEL, "tags 9 %s %s" % (bool(multi_tag_regex.match(line)), line)
+        )
         if multi_tag_regex.match(line):
             # line = ""
             raw_text_2.append("")
