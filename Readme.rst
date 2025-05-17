@@ -108,10 +108,10 @@ COMMONMARK = {"extensions": [<plugin classes>], "enable": [<str of name of featu
   want to enable (e.g. ``"table"``).
 
 COMMONMARK_VERSION
-  Version of the plugin. Inserted by the plugin (if not provided).
+  Version of the plugin. Idea is to have it available to displayed by the theme. Inserted by the plugin (if not provided).
 
 COMMONMARK_DEV_URL
-  Homepage URL of the plugin. Inserted by the plugin (if not provided).
+  Homepage URL of the plugin. Idea is to uave it available to be used by the theme. Inserted by the plugin (if not provided).
 
 COMMONMARK_HTML_PARSER = "html.parser"
   Will be set to "lxml" is it is installed. This is the parser that Beautiful
