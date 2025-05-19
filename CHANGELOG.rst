@@ -4,6 +4,9 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :bug:`-` Hide warnings on disabled built-in Markdown reader (issue starting
+  with Pelican v4.10?).
+
 - :release:`2.0.1 <2024-09-30>`
 - :bug:`1` Don't complain about local links
 

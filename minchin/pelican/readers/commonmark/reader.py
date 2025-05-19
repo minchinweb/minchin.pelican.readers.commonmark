@@ -10,7 +10,7 @@ from pelican.readers import (
     BaseReader,
     MarkdownReader,
 )
-from pelican.utils import pelican_open
+from pelican.utils import file_suffix, pelican_open
 
 from .constants import LOG_PREFIX
 from .markdown import render_fence, render_image, render_link_open
@@ -122,14 +122,17 @@ def silence_builtin_reader_warning(readers):
     """
     Pelican's built-in Markdown Reader (which we are not using) with throw
     an warning message for each Markdown file not processed through it
-    (i.e. for all of them). This silences those.
+    (i.e. for all of them). This skips those.
 
-    This became an issue after Pelican v4.9.1 and by v4.11.0
+    This became an issue after Pelican v4.9.1 and by v4.11.0.
+
+    Ugg...monkey-patching...
     """
-    def patched_disabled_message(self):
-        """No-op reader disabled check"""
-        return "Default Markdown Reader disabled"
+    def check_file_patched(source_path: str) -> None:
+        """Log a warning if a file is processed by a disabled reader."""
+        reader = readers.disabled_readers.get(file_suffix(source_path), None)
+        if reader and not isinstance(reader, MarkdownReader):
+            logger.warning(f"{source_path}: {reader.disabled_message()}")
+            print(reader)
 
-    MarkdownReader.disabled_message = patched_disabled_message
-
-
+    readers.check_file = check_file_patched
