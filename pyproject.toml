@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
@@ -37,8 +37,8 @@ maintainers = [
     {name = "William Minchin", email="w_minchin@hotmail.com" },
 ]
 # requires-python = ">=3.6"
-keywords = ["pelican", "plugin", "comnonmark", "markdown"]
-license = {text = "MIT"}
+keywords = ["pelican", "plugin", "commonmark", "markdown"]
+license = "MIT"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Plugins",
