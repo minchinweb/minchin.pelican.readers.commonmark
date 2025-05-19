@@ -4,6 +4,7 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :bug:`-` Remove warning on internal page links (i.e. ``<a href="#test">``)
 - :bug:`-` Hide warnings on disabled built-in Markdown reader (issue starting
   with Pelican v4.10?).
 
