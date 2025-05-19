@@ -62,11 +62,11 @@ class MDITReader(BaseReader):
         # pre-process
         content, tag_list = remove_tag_only_lines(self, raw_text)
         content, metadata = read_front_matter(
-            self=self,
-            raw_text=content,
+            self = self,
+            raw_text = content,
             # metadata=copy(metadata),
-            metadata=dict(),
-            md=md,
+            metadata = dict(),
+            md = md,
         )
 
         # add back in the found tags
@@ -116,3 +116,20 @@ class MDITReader(BaseReader):
 def add_commonmark_reader(readers):
     for ext in MDITReader.file_extensions:
         readers.reader_classes[ext] = MDITReader
+
+def silence_builtin_reader_warning(readers):
+    """
+    Pelican's built-in Markdown Reader (which we are not using) with throw
+    an warning message for each Markdown file not processed through it
+    (i.e. for all of them). This silences those.
+
+    This became an issue after Pelican v4.9.1 and by v4.11.0
+    """
+    def patched_disabled_message(self):
+        """No-op reader disabled check"""
+        return ""
+
+
+    pelican.readers.MarkdownReader.disabled_message = patched_disabled_check
+    pass
+
