@@ -6,6 +6,7 @@ Pelican.*
 
 - :release:`2.0.1 <2024-09-30>`
 - :bug:`1` Don't complain about local links
+
 - :release:`2.0.0 <2024-03-30>`
 - :support:`-` document support for Fancy Tasklists (Markdown) plugin.
 - :support:`-` separate Wikilinks processing into it's own (Pelican) `plugin

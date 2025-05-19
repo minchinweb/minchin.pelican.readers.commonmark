@@ -16,5 +16,4 @@ def register():
     signals.initialized.connect(check_settings)
     signals.initialized.connect(commonmark_version)
     signals.readers_init.connect(add_commonmark_reader)
-    # signals.readers_init. connect(silence_builtin_reader_warning
-
+    signals.readers_init.connect(silence_builtin_reader_warning)

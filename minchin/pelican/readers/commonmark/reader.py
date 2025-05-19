@@ -8,6 +8,7 @@ from pelican.readers import (
     DUPLICATES_DEFINITIONS_ALLOWED,
     METADATA_PROCESSORS,
     BaseReader,
+    MarkdownReader,
 )
 from pelican.utils import pelican_open
 
@@ -127,9 +128,8 @@ def silence_builtin_reader_warning(readers):
     """
     def patched_disabled_message(self):
         """No-op reader disabled check"""
-        return ""
+        return "Default Markdown Reader disabled"
 
+    MarkdownReader.disabled_message = patched_disabled_message
 
-    pelican.readers.MarkdownReader.disabled_message = patched_disabled_check
-    pass
 
