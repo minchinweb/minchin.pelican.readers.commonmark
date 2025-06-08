@@ -4,6 +4,7 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :release:`2.0.3 <2025-06-07>`
 - :bug:`-` Apply ``highlight`` CSS class to code, so Pelican themes will
   highlight code blocks.
 
