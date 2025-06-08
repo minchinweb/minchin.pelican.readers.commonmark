@@ -154,6 +154,6 @@ def render_fence(self, tokens, idx, options, env):
     output = highlight(
         token.content,
         lexer,
-        HtmlFormatter(cssclass="codehilite", wrapcode=True),
+        HtmlFormatter(cssclass="codehilite highlight", wrapcode=True),
     )
     return output

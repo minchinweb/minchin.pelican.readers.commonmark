@@ -4,6 +4,9 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :bug:`-` Apply ``highlight`` CSS class to code, so Pelican themes will
+  highlight code blocks.
+
 - :release:`2.0.2 <2025-05-19>`
 - :bug:`-` Remove warning on internal page links (i.e. ``<a href="#test">``)
 - :bug:`-` Hide warnings on disabled built-in Markdown reader (issue starting
