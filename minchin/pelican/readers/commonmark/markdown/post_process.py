@@ -38,8 +38,7 @@ def h1_as_title(content, metadata, settings):
     soup = BeautifulSoup(content, settings["COMMONMARK_HTML_PARSER"])
     try:
         title_tag = soup.select("h1")[0]
-    except:
-        # TODO: fix raw except
+    except IndexError:
         logger.info('%s Cannot pull H1 from "%s".' % (LOG_PREFIX, relative_path))
     else:
         my_title = title_tag.text.strip()
@@ -50,7 +49,7 @@ def h1_as_title(content, metadata, settings):
 
         # Remove tag from body (we assume the theme will display it)
         title_tag.decompose()
-        content = soup.prettify()
+        content = str(soup)
 
     return content, metadata
 
@@ -74,7 +73,7 @@ def remove_duplicate_h1(content, metadata, settings):
     """
 
     # if we don't have a title, do nothing
-    if not "title" in metadata.keys():
+    if "title" not in metadata.keys():
         return content
     else:
         metadata_title = metadata["title"]
@@ -97,7 +96,7 @@ def remove_duplicate_h1(content, metadata, settings):
         )
         if metadata_title == h1_title:
             title_tag.decompose()
-            content = soup.prettify()
+            content = str(soup)
 
             relative_path = Path(metadata["path"]).relative_to(settings["PATH"])
             logger.info(

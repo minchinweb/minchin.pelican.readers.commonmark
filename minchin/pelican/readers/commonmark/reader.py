@@ -1,6 +1,7 @@
 from copy import copy
 import logging
 
+from bs4 import BeautifulSoup
 from markdown_it import MarkdownIt
 
 from pelican.readers import (
@@ -63,11 +64,11 @@ class MDITReader(BaseReader):
         # pre-process
         content, tag_list = remove_tag_only_lines(self, raw_text)
         content, metadata = read_front_matter(
-            self = self,
-            raw_text = content,
+            self=self,
+            raw_text=content,
             # metadata=copy(metadata),
-            metadata = dict(),
-            md = md,
+            metadata=dict(),
+            md=md,
         )
 
         # add back in the found tags
@@ -85,6 +86,21 @@ class MDITReader(BaseReader):
         # post-process
         html_content, metadata = h1_as_title(html_content, metadata, self.settings)
         html_content = remove_duplicate_h1(html_content, metadata, self.settings)
+
+        # Remove frame `<html>` and `<body>` tags, as we assume those will be
+        # added by the theme and we just want the HTML fragment here. These
+        # will be added by certain BeautifulSoup parsers (`lxml`, `html5lib`)
+        # if there are missing.
+        soup = BeautifulSoup(content, self.settings["COMMONMARK_HTML_PARSER"])
+        try:
+            html_content = soup.body.encode_contents()
+        except AttributeError as e:
+            raise Exception(
+                "Your 'soup' doesn't have a `body` tag. Try a different parser "
+                "for BeautifulSoup? (Like the `lxml` one?)"
+            ) from e
+        # back to UTF-8 (from bytes)
+        html_content = html_content.decode()
 
         return html_content, metadata
 
@@ -118,6 +134,7 @@ def add_commonmark_reader(readers):
     for ext in MDITReader.file_extensions:
         readers.reader_classes[ext] = MDITReader
 
+
 def silence_builtin_reader_warning(readers):
     """
     Pelican's built-in Markdown Reader (which we are not using) with throw
@@ -128,6 +145,7 @@ def silence_builtin_reader_warning(readers):
 
     Ugg...monkey-patching...
     """
+
     def check_file_patched(source_path: str) -> None:
         """Log a warning if a file is processed by a disabled reader."""
         reader = readers.disabled_readers.get(file_suffix(source_path), None)
