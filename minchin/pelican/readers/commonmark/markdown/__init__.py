@@ -53,7 +53,15 @@ def _relative_links_for_pelican(original_url):
     test_url, _, _ = test_url.partition("?")
 
     # assumed external links
-    if test_url.startswith(("http://", "https://", "//", "mailto:", "tel:", "#")):
+    if test_url.startswith((
+        "http://",
+        "https://",
+        "//",
+        "mailto:",
+        "tel:",
+        "geo:",
+        "#",
+    )):
         new_url = original_url
 
     # assumed in-page links (i.e. `#test`)
