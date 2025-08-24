@@ -3,7 +3,7 @@ import mdit_py_plugins.footnote
 import mdit_py_plugins.front_matter
 
 __title__ = "minchin.pelican.readers.commonmark"
-__version__ = "2.0.4-dev.0"
+__version__ = "2.0.4-dev.1"
 __description__ = "CommonMark Reader for Pelican (via Markdown-IT)"
 __author__ = "W. Minchin"
 __email__ = "w_minchin@hotmail.com"

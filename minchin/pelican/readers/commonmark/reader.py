@@ -91,7 +91,7 @@ class MDITReader(BaseReader):
         # added by the theme and we just want the HTML fragment here. These
         # will be added by certain BeautifulSoup parsers (`lxml`, `html5lib`)
         # if there are missing.
-        soup = BeautifulSoup(content, self.settings["COMMONMARK_HTML_PARSER"])
+        soup = BeautifulSoup(html_content, self.settings["COMMONMARK_HTML_PARSER"])
         try:
             html_content = soup.body.encode_contents()
         except AttributeError as e:
