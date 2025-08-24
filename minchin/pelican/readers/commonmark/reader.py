@@ -95,12 +95,15 @@ class MDITReader(BaseReader):
         try:
             html_content = soup.body.encode_contents()
         except AttributeError as e:
-            raise Exception(
-                "Your 'soup' doesn't have a `body` tag. Try a different parser "
-                "for BeautifulSoup? (Like the `lxml` one?)"
-            ) from e
-        # back to UTF-8 (from bytes)
-        html_content = html_content.decode()
+            # raise Exception(
+            #     "Your 'soup' doesn't have a `body` tag. Try a different parser "
+            #     "for BeautifulSoup? (Like the `lxml` one?)"
+            # ) from e
+            pass
+        else:
+            # back to UTF-8 (from bytes)
+            html_content = html_content.decode()
+        # if we don't have a `body` tag, nothing needs to be done here
 
         return html_content, metadata
 
