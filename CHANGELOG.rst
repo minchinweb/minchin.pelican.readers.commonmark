@@ -4,6 +4,7 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :feature:`-` enable strikethrough/delete (e.g. ``~~deleted text~~``)
 - :release:`2.1.0 <2025-08-24>`
 - :feature:`-` include subscript Markdown extention, on by default (i.e.
   ``~sub~script``). *Note: no superscript support quite yet.*
