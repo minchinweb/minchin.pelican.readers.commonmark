@@ -27,6 +27,7 @@ extensions are:
 - footnotes
 - defintion list
 - tables
+- subscript
 
 Changes Required from "Vanilla" Pelican
 ---------------------------------------

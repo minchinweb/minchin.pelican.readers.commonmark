@@ -4,6 +4,8 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :feature:`-` include subscript Markdown extention, on by default (i.e.
+  ``~sub~script``). *Note: no superscript support quite yet.*
 - :release:`2.0.3 <2025-06-07>`
 - :bug:`-` Apply ``highlight`` CSS class to code, so Pelican themes will
   highlight code blocks.
