@@ -1,8 +1,13 @@
 from datetime import date, datetime
+import logging
 
 from pelican.contents import Author, Tag
 from pelican.readers import _DISCARD, MarkdownReader, ensure_metadata_list
 from pelican.utils import SafeDatetime, get_date
+
+from ..constants import LOG_PREFIX
+
+logger = logging.getLogger(__name__)
 
 
 def get_markdown_file_extensions():
@@ -27,12 +32,16 @@ def clean_dates(value, settings=dict()):
     strings directly into datetime.datetime (or datetime.date), but the
     BaseReader always expects to be provided a string.
     """
+    logger.log(5, f"{LOG_PREFIX} clean_dates() in {value} {type(value)}")
+
+    return_value = None
+    return_case = 0
     if isinstance(value, SafeDatetime):
-        return value
-    elif isinstance(value, date):
-        return SafeDatetime(value.year, value.month, value.day)
+        return_value = value
+        return_case = 1
+    # need to do datetime before date
     elif isinstance(value, datetime):
-        return SafeDatetime(
+        return_value = SafeDatetime(
             value.year,
             value.month,
             value.day,
@@ -43,12 +52,20 @@ def clean_dates(value, settings=dict()):
             value.tzinfo,
             fold=value.fold,
         )
+        return_case = 3
+    elif isinstance(value, date):
+        return_value = SafeDatetime(value.year, value.month, value.day)
+        return_case = 2
     elif isinstance(value, str):
-        return get_date(value.replace("_", " "))
+        return_value = get_date(value.replace("_", " "))
+        return_case = 4
     else:
         # raise error?
-        return value
+        return_value = value
+        return_case = 5
 
+    logger.log(5, f"{LOG_PREFIX} clean_dates() out {return_value} {type(return_value)} via {return_case}")
+    return return_value
 
 def clean_tags(value, settings=dict()):
     """

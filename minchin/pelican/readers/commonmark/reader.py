@@ -1,4 +1,3 @@
-from copy import copy
 import logging
 
 from bs4 import BeautifulSoup
@@ -28,11 +27,19 @@ from .utils.reader import load_enables, load_extensions
 logger = logging.getLogger(__name__)
 
 # use custom date cleaner
+# TODO: Allow runtime appending to this list
 METADATA_PROCESSORS_MDIT = METADATA_PROCESSORS.copy()
 METADATA_PROCESSORS_MDIT["date"] = clean_dates
 METADATA_PROCESSORS_MDIT["modified"] = clean_dates
 METADATA_PROCESSORS_MDIT["tags"] = clean_tags
 METADATA_PROCESSORS_MDIT["authors"] = clean_authors
+# TODO: Move this back to the TaskNotes plugin
+METADATA_PROCESSORS_MDIT["threshold"] = clean_dates
+METADATA_PROCESSORS_MDIT["threshold_date"] = clean_dates
+METADATA_PROCESSORS_MDIT["scheduled"] = clean_dates
+METADATA_PROCESSORS_MDIT["due"] = clean_dates
+METADATA_PROCESSORS_MDIT["cancelled"] = clean_dates
+METADATA_PROCESSORS_MDIT["completed"] = clean_dates
 
 
 class MDITReader(BaseReader):
