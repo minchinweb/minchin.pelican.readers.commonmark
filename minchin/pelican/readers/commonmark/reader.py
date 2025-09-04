@@ -86,6 +86,8 @@ class MDITReader(BaseReader):
 
         # add path to metadata
         metadata["path"] = filename
+        # TODO: at both keys??
+        metadata["source_path"] = filename
 
         # process (the Markdown)
         html_content = md.render(content)
