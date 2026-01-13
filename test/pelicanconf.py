@@ -1,3 +1,45 @@
+from minchin.pelican.readers.commonmark.constants import COMMONMARK_DEFAULT_CONFIG
+
+try:
+    from pelican.plugins import seafoam
+except ImportError:
+    PLUGINS = []
+    MENUITEMS = (
+        (
+            "Dev Blog",
+            "https://blog.minchin.ca/label/commonmark-pelican/",
+            # "fa fa-fw fa-pencil"
+        ),
+    )
+else:
+    THEME = seafoam.get_path()
+    PLUGINS = [
+        "pelican.plugins.seafoam",
+        "pelican.plugins.jinja_filters",
+        # "pelican.plugins.image_process",
+        # others, as desired...
+    ]
+    MENUITEMS = (
+        (
+            "Dev Blog",
+            "https://blog.minchin.ca/label/commonmark-pelican/",
+            "fa fa-fw fa-pencil"
+        ),
+    )
+
+# start with default configuration
+COMMONMARK = COMMONMARK_DEFAULT_CONFIG
+
+try:
+    import minchin.md_it.fancy_tasklists
+except ImportError:
+    pass
+else:
+    # add fancy tasklists
+    COMMONMARK["extensions"].append(
+        minchin.md_it.fancy_tasklists.fancy_tasklists_plugin,
+    )
+
 PATH = "content"
 STATIC_PATHS = [
     "images",
@@ -5,7 +47,7 @@ STATIC_PATHS = [
 TIMEZONE = "America/Edmonton"
 OUTPUT_PATH = "output"
 
-PLUGINS = [
+PLUGINS = PLUGINS + [
     "minchin.pelican.readers.commonmark",
 ]
 
@@ -40,14 +82,6 @@ DAY_ARCHIVE_SAVE_AS = "posts/{date:%Y}/{date:%m}/{date:%d}/index.html"
 PAGE_URL = "{slug}.html"
 PAGE_SAVE_AS = PAGE_URL
 
-
-MENUITEMS = (
-    (
-        "Dev Blog",
-        "https://blog.minchin.ca/label/commonmark-pelican/",
-        # "fa fa-fw fa-pencil"
-    ),
-)
 
 DISPLAY_BREADCRUMBS = True
 DISPLAY_CATEGORY_IN_BREADCRUMBS = True

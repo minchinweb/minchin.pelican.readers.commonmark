@@ -1,6 +1,7 @@
 ---
 title: Checkbox Test
 date: 2024-01-31 21:42:00
+modified: 2026-01-12
 tags:
     - test
 ---
@@ -55,6 +56,32 @@ installed.
 - [&] `[&]` symbolism
 - [s] `[s]` secret
 - [🚿] `[🚿]` shower
+- [🦷] tooth / dental
+- [🏠] house
+- [📺] TV
+- [🎥] `[🎥]` Film / Movie
+- [🎬] `[🎬]` Film / Movie
+- [📽] `[📽]` Film / Movie
+- [🎞] `[🎞]` Film / Movie
+- [🎦] `[🎦]` Film / Movie
+- [🎲] `[🎲]` dice / play
+- [📕] `[📕]` book
+- [e] `[e]` energy (/lightening bolt)
+- [o] `[o]`
+
+Possible additions:
+
+- [💤] zzz sleeping
+- [z] zzz sleeping
+- [Z] zzz sleeping
+- [📽️] movie
+- [🚶‍♂️] walk
+- [🏊‍♂️] swimming
+- [✈️] plane/travel
+- [🛒] shopping
+- [💼] suitcase for professional/work?
+- [🧺] laundry basket?
+- [💈] barber pole for shave/haircut?
 
 ---
 
