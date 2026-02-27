@@ -159,20 +159,25 @@ See `sample rendered checkboxes
 <https://github.com/MinchinWeb/seafoam/blob/master/docs/screenshots/2.10.0/fancy-checkboxes.png>`_.
 
 
-I have also ported a plugin to support inserted text using double pluses
-(``++inserted++``), but this is not activated by default. To enable:
+I have also ported plugins to support inserted text using double pluses
+(``++inserted++``) and marked text using double equals (``==marked==``), but
+these are not activated by default. To enable:
 
 .. code-block:: python
 
     # pelicanconf.py, as above
 
     import minchin.md_it.insert
+    import minchin.md_it.marked
 
     # add insert plugin
     COMMONMARK["extensions"].append(
         minchin.md_it.insert.insert_plugin,
     )
-
+    # add marked plugin
+    COMMONMARK["extensions"].append(
+        minchin.md_it.marked.marked_plugin,
+    )
 
 
 Prior Art

@@ -8,6 +8,8 @@ Pelican.*
   ``minchin.md_it.insert`` plugin.
 - :feature:`6` enable superscript Markdown extention, through the
   ``minchin.md_it.superscript`` plugin.
+- :support:`4` mention support for mark(ed) Markdown extension, via
+  ``minchin.md_it.marked`` plugin (e.g. ``==marked==``).
 
 - :release:`2.2.0 <2025-08-24>`
 - :feature:`-` enable strikethrough/delete, on by default (e.g. ``~~deleted

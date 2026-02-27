@@ -50,6 +50,16 @@ else:
         minchin.md_it.insert.insert_plugin,
     )
 
+try:
+    import minchin.md_it.marked
+except ImportError:
+    pass
+else:
+    # add insert plugin
+    COMMONMARK["extensions"].append(
+        minchin.md_it.marked.marked_plugin,
+    )
+
 PATH = "content"
 STATIC_PATHS = [
     "images",
