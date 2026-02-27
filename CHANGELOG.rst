@@ -4,6 +4,8 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
+- :support:`5` mention support for insert Markdown extension, via
+  ``minchin.md_it.insert`` plugin.
 - :feature:`6` enable superscript Markdown extention, through the
   ``minchin.md_it.superscript`` plugin.
 
