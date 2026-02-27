@@ -150,14 +150,15 @@ plus.  Without the DIV attribute (the
 
 .
 
+```md
 Not included in the Markdown specification (but sometimes available) are
 ~sub~script, ^super^script, ++insertion++, ~~deletion~~, and ==marked== text.
 
-```md
 H~2~O CO~2~ ^235^U 2^nd^ m^2^
-
-++insertion++, ~~deletion~~, and ==marked==
 ```
+
+Not included in the Markdown specification (but sometimes available) are
+~sub~script, ^super^script, ++insertion++, ~~deletion~~, and ==marked== text.
 
 H~2~O CO~2~ ^235^U 2^nd^ m^2^
 

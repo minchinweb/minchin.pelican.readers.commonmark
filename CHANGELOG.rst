@@ -4,13 +4,14 @@ Changelog for CommonMark
 *This is the changelog for ``minchin.pelican.readers.commonmark``, a plugin for
 Pelican.*
 
-- :support:`5` mention support for insert Markdown extension, via
-  ``minchin.md_it.insert`` plugin.
-- :feature:`6` enable superscript Markdown extention, through the
-  ``minchin.md_it.superscript`` plugin.
+- :release:`2.3.0 <2026-02-27>`
 - :support:`3` note why ``markdown-it-py`` (in Readme)
 - :support:`4` mention support for mark(ed) Markdown extension, via
   ``minchin.md_it.marked`` plugin (e.g. ``==marked==``).
+- :support:`5` mention support for ins(ert) Markdown extension, via
+  ``minchin.md_it.insert`` plugin (e.g. ``++insertion++``).
+- :feature:`6` enable superscript Markdown extention, on by default, through the
+  ``minchin.md_it.superscript`` plugin (e.g. ``^super^script``).
 
 - :release:`2.2.0 <2025-08-24>`
 - :feature:`-` enable strikethrough/delete, on by default (e.g. ``~~deleted
