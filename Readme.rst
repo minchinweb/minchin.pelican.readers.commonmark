@@ -15,6 +15,14 @@ with the two readers, and running a diff on the two outputs, and tweaking your
 source files (or adding Markdown plugins here) until the output is what you
 want.
 
+This project was started for two reasons:
+
+1. *Pelican* already ships with a CommonMark renderer (``markdown-it-py``, a
+   sub-dependency of ``rich``), so it felt reasonable to make use of it.
+2. Obisidian, which I've started to use to take my notes in, uses a CommonMark
+   rendered, and so the hope is that this would be more consistent with that
+   output.
+
 When I set out to build this plugin, I (naively) thought I would stick to a
 "pure" CommonMark/Markdown implementation, but I quickly realized that I like
 the extensions to Markdown I use, and I wasn't ready to give them up. That

@@ -8,6 +8,7 @@ Pelican.*
   ``minchin.md_it.insert`` plugin.
 - :feature:`6` enable superscript Markdown extention, through the
   ``minchin.md_it.superscript`` plugin.
+- :support:`3` note why ``markdown-it-py`` (in Readme)
 - :support:`4` mention support for mark(ed) Markdown extension, via
   ``minchin.md_it.marked`` plugin (e.g. ``==marked==``).
 
