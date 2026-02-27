@@ -21,13 +21,15 @@ the extensions to Markdown I use, and I wasn't ready to give them up. That
 said, I've tried to keep them generally mild. The default configuration will
 automatically include all the plugins that I use by default, although you can
 add or remove from that list as you wish. Currently enabled CommonMark
-extensions are:
+extensions (and features) are:
 
 - front matter
 - footnotes
 - defintion list
 - tables
+- strikethrough/delete
 - subscript
+- superscript
 
 Changes Required from "Vanilla" Pelican
 ---------------------------------------

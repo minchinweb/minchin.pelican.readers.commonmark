@@ -1,8 +1,8 @@
 ---
 title: Markdown Display Test
 date: 2012-11-25
-updated: 2021-04-18
-version: 1.2.1
+updated: 2026-02-26
+version: 1.3.0
 tags: markdown, test
 author: MinchinWeb
 category: test
@@ -12,8 +12,8 @@ image: images/birger-strahl-olI66vtMgNo-unsplash.jpg
 <div id="contents"></div>
 
 This file serves three purposes:  
-1) a markdown language reference,  
-2) a test file to ensure that the markdown is being interpreted propertly, and  
+1) a Markdown language reference,  
+2) a test file to ensure that the Markdown is being interpreted properly, and  
 3) a place to test out changes to the accompanying CSS file (`md-styles.css`).
 
 Let us begin:
@@ -147,6 +147,19 @@ This is a div wrapping some Markdown
 plus.  Without the DIV attribute (the
 `markdown=1` part), it ignores the block.
 </div>
+
+.
+
+Not included in the Markdown specification (but sometimes available) are
+~sub~script, ^super^script, ++insertion++, ~~deletion~~, and ==marked== text.
+
+```md
+H~2~O CO~2~ ^235^U 2^nd^ m^2^
+
+++insertion++, ~~deletion~~, and ==marked==
+```
+
+H~2~O CO~2~ ^235^U 2^nd^ m^2^
 
 # Links
 
