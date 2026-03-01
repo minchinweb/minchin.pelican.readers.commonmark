@@ -52,7 +52,10 @@ class MDITReader(BaseReader):
 
         settings = self.settings["COMMONMARK"]
 
-    def read(self, filename):
+    def read(self, source_path):
+        # rename variable so signature matches BaseReader
+        filename = source_path
+
         # setup our CommonMark (Markdown) processor
         md = MarkdownIt("commonmark")
         md = load_extensions(md, self.settings)
@@ -68,7 +71,7 @@ class MDITReader(BaseReader):
             # text = list(fp.splitlines())
             raw_text = fp
 
-        # pre-process
+        # preprocess
         content, tag_list = remove_tag_only_lines(self, raw_text)
         content, metadata = read_front_matter(
             self=self,
@@ -92,7 +95,7 @@ class MDITReader(BaseReader):
         # process (the Markdown)
         html_content = md.render(content)
 
-        # post-process
+        # postprocess
         html_content, metadata = h1_as_title(html_content, metadata, self.settings)
         html_content = remove_duplicate_h1(html_content, metadata, self.settings)
 

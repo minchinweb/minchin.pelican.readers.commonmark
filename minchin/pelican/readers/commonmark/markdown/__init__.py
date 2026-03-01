@@ -42,7 +42,7 @@ def _relative_links_for_pelican(original_url):
     We assume that any link NOT starting with `http://`, `https://` or `//` is
     a relative link. If that link is to a Markdown (or ReStructured Text) file,
     we preface the destination URL with `{filename}` so Pelican will link to
-    the file, whereever it ends up in the rendered site. If the file is at
+    the file, wherever it ends up in the rendered site. If the file is at
     image, then we preface with "{static}" instead.
     """
 
@@ -61,6 +61,7 @@ def _relative_links_for_pelican(original_url):
         "tel:",
         "geo:",
         "#",
+        "mid:",  # links to specific messages in Thunderbird
     )):
         new_url = original_url
 
@@ -80,8 +81,8 @@ def _relative_links_for_pelican(original_url):
 
     else:
         logger.warning(
-            '%s Don\'t know what to do with link target "%s".'
-            % (LOG_PREFIX, original_url)
+            '%s Don\'t know what to do with link target "%s".',
+            LOG_PREFIX, original_url
         )
         # early exit
         return original_url
